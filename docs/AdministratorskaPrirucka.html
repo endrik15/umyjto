@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<title>Administrátorská príručka – Umyj.to</title>
+<style>
+  @page { size: A4; margin: 2.5cm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Calibri, Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.6;
+    color: #1a1a1a;
+    max-width: 21cm;
+    margin: 0 auto;
+    padding: 2.5cm;
+    background: #fff;
+  }
+  @media print { body { padding: 0; } }
+
+  .cover { text-align: center; padding: 60px 0 80px; border-bottom: 3px solid #1a6fc4; margin-bottom: 40px; }
+  .cover h1 { font-size: 28pt; color: #1a6fc4; margin-bottom: 8px; }
+  .cover .subtitle { font-size: 14pt; color: #555; margin-bottom: 30px; }
+  .cover table { margin: 0 auto; border: none; }
+  .cover td { padding: 4px 16px; border: none; font-size: 10pt; color: #555; }
+  .cover td:first-child { font-weight: bold; text-align: right; }
+
+  h1 { font-size: 18pt; color: #1a6fc4; border-bottom: 2px solid #1a6fc4; padding-bottom: 6px; margin: 28px 0 14px; }
+  h2 { font-size: 13pt; color: #145ca0; margin: 20px 0 8px; }
+  h3 { font-size: 11pt; color: #333; margin: 14px 0 6px; font-weight: bold; }
+  p  { margin-bottom: 8px; }
+  ul, ol { margin: 6px 0 10px 22px; }
+  li { margin-bottom: 5px; }
+  code { font-family: Consolas, monospace; background: #f0f6ff; padding: 1px 5px; border-radius: 3px; font-size: 10pt; }
+  pre  { background: #f0f6ff; border-left: 3px solid #1a6fc4; padding: 12px 14px; font-family: Consolas, monospace;
+         font-size: 9.5pt; line-height: 1.5; overflow-x: auto; margin: 10px 0 16px; white-space: pre-wrap; }
+
+  table { border-collapse: collapse; width: 100%; margin: 12px 0 18px; font-size: 10.5pt; }
+  th { background: #1a6fc4; color: #fff; padding: 8px 10px; text-align: left; font-weight: 600; }
+  td { padding: 7px 10px; border: 1px solid #c8d8f0; vertical-align: top; }
+  tr:nth-child(even) td { background: #f0f6ff; }
+
+  .tip { background: #e8f2fd; border-left: 4px solid #1a6fc4; padding: 10px 14px; margin: 12px 0; border-radius: 0 6px 6px 0; }
+  .tip strong { color: #1a6fc4; }
+  .warn { background: #fff7ed; border-left: 4px solid #f59e0b; padding: 10px 14px; margin: 12px 0; border-radius: 0 6px 6px 0; }
+  .warn strong { color: #92400e; }
+  .danger { background: #fee2e2; border-left: 4px solid #dc2626; padding: 10px 14px; margin: 12px 0; border-radius: 0 6px 6px 0; }
+  .danger strong { color: #991b1b; }
+  .step { display: flex; gap: 12px; align-items: flex-start; margin: 8px 0; }
+  .step-num { background: #1a6fc4; color: #fff; border-radius: 50%; width: 24px; height: 24px;
+              display: flex; align-items: center; justify-content: center; font-weight: bold;
+              font-size: 10pt; flex-shrink: 0; margin-top: 2px; }
+  .section-num { color: #1a6fc4; font-weight: bold; margin-right: 4px; }
+  .badge-green  { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; padding: 2px 8px; border-radius: 12px; font-size: 9.5pt; }
+  .badge-yellow { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; padding: 2px 8px; border-radius: 12px; font-size: 9.5pt; }
+  .badge-red    { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; padding: 2px 8px; border-radius: 12px; font-size: 9.5pt; }
+</style>
+</head>
+<body>
+
+<!-- TITULNÁ STRANA -->
+<div class="cover">
+  <h1>Umyj.to</h1>
+  <div class="subtitle">Administrátorská príručka<br><em>Admin Guide</em></div>
+  <table>
+    <tr><td>Verzia</td><td>1.0</td></tr>
+    <tr><td>Dátum</td><td>Máj 2026</td></tr>
+    <tr><td>Autor</td><td>Adam Mark Šepeľa</td></tr>
+    <tr><td>Určené pre</td><td>Správcov aplikácie a obsahu</td></tr>
+  </table>
+</div>
+
+<!-- 1. TECHNICKÉ POŽIADAVKY -->
+<h1><span class="section-num">1.</span> Technické požiadavky</h1>
+<p>
+  Umyj.to je <strong>statická klient-side aplikácia</strong> — nevyžaduje žiadny server,
+  databázu ani špeciálny softvér. Na spustenie stačí:
+</p>
+<table>
+  <tr><th>Požiadavka</th><th>Minimálna verzia</th><th>Poznámka</th></tr>
+  <tr><td>Webový prehliadač</td><td>Chrome 90+ / Firefox 88+ / Edge 90+</td><td>Potrebný pre LocalStorage a Geolocation API</td></tr>
+  <tr><td>Internetové pripojenie</td><td>Voliteľné</td><td>Potrebné len pre načítanie mapových dlaždíc (OpenStreetMap). Všetka logika funguje offline.</td></tr>
+  <tr><td>Priestor na disku</td><td>~200 KB</td><td>Leaflet.js 148 KB + vlastné súbory</td></tr>
+  <tr><td>Rozlíšenie obrazovky</td><td>320 px – 1920 px</td><td>Responzívny dizajn pre mobil aj desktop</td></tr>
+</table>
+
+<!-- 2. SPUSTENIE APLIKÁCIE -->
+<h1><span class="section-num">2.</span> Spustenie aplikácie</h1>
+
+<h2>2.1 Otvorenie priamo z disku</h2>
+<p>Najjednoduchší spôsob — bez inštalácie čohokoľvek:</p>
+<div class="step"><div class="step-num">1</div><p>Skopíruj celý priečinok <code>umyto/</code> kamkoľvek na disk.</p></div>
+<div class="step"><div class="step-num">2</div><p>Otvor priečinok v správcovi súborov a dvakrát klikni na <code>index.html</code>.</p></div>
+<div class="step"><div class="step-num">3</div><p>Súbor sa otvorí priamo v prehliadači cez protokol <code>file://</code>.</p></div>
+
+<div class="tip">
+  <strong>💡 Odporúčanie:</strong> Otvorenie cez <code>file://</code> je najspoľahlivejší spôsob
+  — stránka sa nenačítava opakovane a mapa funguje správne.
+</div>
+
+<h2>2.2 Otvorenie cez VS Code Live Server</h2>
+<div class="step"><div class="step-num">1</div><p>Otvor priečinok <code>umyto/</code> vo VS Code.</p></div>
+<div class="step"><div class="step-num">2</div><p>Klikni pravým tlačidlom na <code>index.html</code> → <em>Open with Live Server</em>.</p></div>
+<div class="step"><div class="step-num">3</div><p>Aplikácia sa otvorí na adrese <code>http://127.0.0.1:5500</code>.</p></div>
+
+<div class="warn">
+  <strong>⚠️ Pozor:</strong> Na systémoch Windows s OneDrive synchronizáciou môže Live Server
+  spôsobovať opakované reloady stránky. Ak sa stránka neustále obnovuje, použi metódu <code>file://</code>.
+</div>
+
+<!-- 3. ADMIN PANEL -->
+<h1><span class="section-num">3.</span> Admin panel</h1>
+
+<h2>3.1 Prístup</h2>
+<p>Admin panel je dostupný cez navigačný odkaz <strong>Admin</strong> v hlavičke stránky,
+alebo priamo otvorením súboru <code>admin.html</code>. <strong>Žiadne heslo sa nevyžaduje</strong>
+— ochrana je len fyzická (súbor na disku).</p>
+
+<!-- 4. PRIDANIE UMYVÁRNE -->
+<h1><span class="section-num">4.</span> Pridanie novej umyvárne</h1>
+
+<div class="step"><div class="step-num">1</div><p>Na stránke adminu vyplň formulár <strong>Nová autoumyváreň</strong>.</p></div>
+<div class="step"><div class="step-num">2</div>
+  <p>Povinné polia sú označené <code>*</code>:</p>
+  <ul>
+    <li><strong>Názov</strong> – napr. „Turbo Wash Martin"</li>
+    <li><strong>Mesto</strong> – napr. „Martin"</li>
+    <li><strong>Typ umývania</strong> – Automatická / Ručná / Samoobslužná</li>
+    <li><strong>Adresa</strong> – úplná adresa</li>
+    <li><strong>GPS súradnice</strong> – zemepisná šírka a dĺžka (viď nižšie)</li>
+  </ul>
+</div>
+<div class="step"><div class="step-num">3</div><p>Voliteľne vyplň telefón, hodiny, popis.</p></div>
+<div class="step"><div class="step-num">4</div><p>Pridaj položky cenníka tlačidlom <strong>+ Pridať položku cenníka</strong>.</p></div>
+<div class="step"><div class="step-num">5</div><p>Klikni <strong>Uložiť umyváreň</strong>. Umyváreň sa okamžite zobrazí na mape.</p></div>
+
+<h2>4.1 Ako nájsť GPS súradnice</h2>
+<ol>
+  <li>Otvor <strong>Google Maps</strong> (maps.google.com).</li>
+  <li>Nájdi polohu umyvárne na mape.</li>
+  <li>Klikni <strong>pravým tlačidlom myši</strong> na presné miesto.</li>
+  <li>Z kontextového menu skopíruj prvé dve čísla — to sú súradnice vo formáte <code>lat, lng</code>.</li>
+  <li>Príklad: <code>48.7102, 21.2581</code> → lat = 48.7102, lng = 21.2581</li>
+</ol>
+
+<div class="tip">
+  <strong>💡 Rozsah súradníc:</strong><br>
+  Slovensko: lat 47.5 – 49.6 · lng 16.8 – 22.6<br>
+  Česká republika: lat 48.5 – 51.1 · lng 12.1 – 18.9
+</div>
+
+<!-- 5. SPRÁVA UMYVÁRNÍ -->
+<h1><span class="section-num">5.</span> Správa umyvární</h1>
+<p>
+  Sekcia <strong>Všetky umyvárne</strong> zobrazuje kompletný zoznam — základné umyvárne
+  z aplikácie aj tie, ktoré si pridal cez formulár.
+</p>
+<table>
+  <tr><th>Tlačidlo</th><th>Funkcia</th></tr>
+  <tr><td><strong>Detail</strong></td><td>Otvorí stránku detailu danej umyvárne</td></tr>
+  <tr><td><strong>Zmazať</strong></td><td>Vymaže umyváreň. Základné umyvárne sa pridajú do skrytého zoznamu (nie sú natrvalo vymazané z kódu). Pridané sa vymažú z LocalStorage.</td></tr>
+</table>
+
+<div class="tip">
+  <strong>💡 Obnovenie zmazaných základných umyvární:</strong> Klikni na tlačidlo
+  <strong>Reset demo</strong> dole na stránke — to vymaže zoznam skrytých a umyvárne sa vrátia.
+</div>
+
+<!-- 6. SPRÁVA PROBLÉMOV -->
+<h1><span class="section-num">6.</span> Správa nahlásených problémov</h1>
+<p>
+  Keď používateľ nahlási problém na umyvárni, zobrazí sa v sekcii
+  <strong>⚠️ Nahlásené problémy</strong> na admin stránke.
+</p>
+
+<h2>6.1 Workflow spracovania problému</h2>
+<table>
+  <tr><th>Stav</th><th>Tlačidlo</th><th>Čo sa stane</th></tr>
+  <tr>
+    <td>Nový (čakajúci)</td>
+    <td><span class="badge-yellow">👁 Viem o nej</span></td>
+    <td>Na detail stránke sa zobrazí červené varovanie ⚠️ viditeľné pre všetkých návštevníkov.</td>
+  </tr>
+  <tr>
+    <td>Nový (čakajúci)</td>
+    <td>✕ Zamietnuť</td>
+    <td>Hlásenie sa vymaže bez zobrazenia na stránke (falošné hlásenie).</td>
+  </tr>
+  <tr>
+    <td>Potvrdený (zobrazený)</td>
+    <td><span class="badge-green">✔ Opravené</span></td>
+    <td>Varovanie zmizne z detail stránky. Hlásenie sa vymaže zo systému.</td>
+  </tr>
+</table>
+
+<h2>6.2 Poradie problémov</h2>
+<p>
+  V zozname sa zobrazujú nové (nespracované) problémy <strong>hore</strong>,
+  potvrdené (čakajúce na opravu) <strong>dole</strong>.
+</p>
+
+<!-- 7. RESET DEMO -->
+<h1><span class="section-num">7.</span> Reset demo dát</h1>
+<p>
+  Na spodku admin stránky sa nachádza sekcia <strong>🗑️ Reset demo</strong> s červeným okrajom.
+  Slúži na prípravu aplikácie pred prezentáciou — vymaže všetky dáta vytvorené počas testovania.
+</p>
+
+<div class="danger">
+  <strong>⚠️ Pozor — táto akcia je nevratná!</strong> Po kliknutí na reset sa vymažú:
+  <ul style="margin-top:6px">
+    <li>Všetky recenzie (od všetkých umyvární)</li>
+    <li>Všetky nahlásené problémy</li>
+    <li>Všetky stavy vyťaženosti (Waze status)</li>
+    <li>Umyvárne pridané cez formulár</li>
+    <li>Zoznam skrytých základných umyvární</li>
+  </ul>
+  <strong>Základné dáta v data.js ostanú zachované.</strong>
+</div>
+
+<p>Postup:</p>
+<div class="step"><div class="step-num">1</div><p>Prejdi na stránku <strong>admin.html</strong>.</p></div>
+<div class="step"><div class="step-num">2</div><p>Posun na spodok stránky ku sekcii <strong>🗑️ Reset demo</strong>.</p></div>
+<div class="step"><div class="step-num">3</div><p>Klikni na tlačidlo <strong>🗑️ Vymazať všetky demo dáta</strong>.</p></div>
+<div class="step"><div class="step-num">4</div><p>Potvrď dialóg (Confirm). Dáta sa vymažú a zoznamy sa automaticky obnovia.</p></div>
+
+<!-- 8. TECHNICKÉ POZNÁMKY -->
+<h1><span class="section-num">8.</span> Technické poznámky</h1>
+
+<h2>8.1 Kde sú uložené dáta</h2>
+<p>
+  Aplikácia nepoužíva žiadny server ani databázu. Všetky dynamicky vytvorené dáta
+  sú uložené v <strong>LocalStorage</strong> prehliadača na danom zariadení:
+</p>
+<pre>
+umyto_umyvarne              → umyvárne pridané cez admin formulár
+umyto_skryte                → ID základných umyvární skrytých adminom
+umyto_recenzie_{id}         → recenzie ku konkrétnej umyvárni
+umyto_status_{id}           → aktuálna vyťaženosť (Voľno/Čaká sa/Plno)
+umyto_nahlasene_problemy    → zoznam čakajúcich hlásení
+umyto_schvalene_problemy_{id} → schválené (zobrazené) problémy
+</pre>
+<p>
+  Dáta sú dostupné len v tom prehliadači a na tom zariadení, kde boli vytvorené.
+  Nie sú synchronizované s inými zariadeniami.
+</p>
+
+<h2>8.2 Základné umyvárne (data.js)</h2>
+<p>
+  Základných <strong>13 umyvární</strong> je naprogramovaných priamo v súbore <code>data.js</code>.
+  Na ich trvalú zmenu je potrebné upraviť tento súbor v textovom editore.
+  Zmazanie cez admin panel ich len dočasne skryje (do resetu).
+</p>
+<table>
+  <tr><th>Krajina</th><th>Počet</th><th>Mestá</th></tr>
+  <tr><td>🇸🇰 Slovensko</td><td>8</td><td>Bratislava (2×), Košice, Žilina, Nitra, Trnava, Banská Bystrica, Prešov</td></tr>
+  <tr><td>🇨🇿 Česká republika</td><td>5</td><td>Praha, Brno, Ostrava, Plzeň, Liberec</td></tr>
+</table>
+
+<h2>8.3 Leaflet.js (mapa)</h2>
+<p>
+  Knižnica Leaflet.js (verzia 1.9.4) je uložená <strong>lokálne</strong> v priečinku projektu
+  ako súbor <code>leaflet.js</code> a <code>leaflet.css</code>. Mapa načítava dlaždice
+  z OpenStreetMap (<code>tile.openstreetmap.org</code>), čo vyžaduje internetové pripojenie.
+  Bez internetu sa zobrazí šedá mapa, ale všetky ostatné funkcie aplikácie fungujú normálne.
+</p>
+
+<footer style="margin-top:50px; padding-top:14px; border-top:1px solid #c8d8f0; font-size:9pt; color:#888; text-align:center;">
+  Umyj.to – ročníkový projekt &nbsp;·&nbsp; Adam Mark Šepeľa 2026 &nbsp;·&nbsp; Administrátorská príručka v1.0
+</footer>
+</body>
+</html>

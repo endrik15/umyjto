@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<title>Používateľská príručka – Umyj.to</title>
+<style>
+  @page { size: A4; margin: 2.5cm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Calibri, Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.6;
+    color: #1a1a1a;
+    max-width: 21cm;
+    margin: 0 auto;
+    padding: 2.5cm;
+    background: #fff;
+  }
+  @media print { body { padding: 0; } }
+
+  .cover { text-align: center; padding: 60px 0 80px; border-bottom: 3px solid #1a6fc4; margin-bottom: 40px; }
+  .cover h1 { font-size: 28pt; color: #1a6fc4; margin-bottom: 8px; }
+  .cover .subtitle { font-size: 14pt; color: #555; margin-bottom: 30px; }
+  .cover table { margin: 0 auto; border: none; }
+  .cover td { padding: 4px 16px; border: none; font-size: 10pt; color: #555; }
+  .cover td:first-child { font-weight: bold; text-align: right; }
+
+  h1 { font-size: 18pt; color: #1a6fc4; border-bottom: 2px solid #1a6fc4; padding-bottom: 6px; margin: 28px 0 14px; }
+  h2 { font-size: 13pt; color: #145ca0; margin: 20px 0 8px; }
+  h3 { font-size: 11pt; color: #333; margin: 14px 0 6px; font-weight: bold; }
+  p  { margin-bottom: 8px; }
+  ul, ol { margin: 6px 0 10px 22px; }
+  li { margin-bottom: 5px; }
+  code { font-family: Consolas, monospace; background: #f0f6ff; padding: 1px 5px; border-radius: 3px; font-size: 10pt; }
+
+  table { border-collapse: collapse; width: 100%; margin: 12px 0 18px; font-size: 10.5pt; }
+  th { background: #1a6fc4; color: #fff; padding: 8px 10px; text-align: left; font-weight: 600; }
+  td { padding: 7px 10px; border: 1px solid #c8d8f0; vertical-align: top; }
+  tr:nth-child(even) td { background: #f0f6ff; }
+
+  .tip { background: #e8f2fd; border-left: 4px solid #1a6fc4; padding: 10px 14px; margin: 12px 0; border-radius: 0 6px 6px 0; }
+  .tip strong { color: #1a6fc4; }
+  .step { display: flex; gap: 12px; align-items: flex-start; margin: 8px 0; }
+  .step-num { background: #1a6fc4; color: #fff; border-radius: 50%; width: 24px; height: 24px;
+              display: flex; align-items: center; justify-content: center; font-weight: bold;
+              font-size: 10pt; flex-shrink: 0; margin-top: 2px; }
+  .section-num { color: #1a6fc4; font-weight: bold; margin-right: 4px; }
+  .badge-green  { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; padding: 2px 8px; border-radius: 12px; font-size: 9.5pt; }
+  .badge-yellow { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; padding: 2px 8px; border-radius: 12px; font-size: 9.5pt; }
+  .badge-red    { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; padding: 2px 8px; border-radius: 12px; font-size: 9.5pt; }
+</style>
+</head>
+<body>
+
+<!-- TITULNÁ STRANA -->
+<div class="cover">
+  <h1>Umyj.to</h1>
+  <div class="subtitle">Používateľská príručka<br><em>User Guide</em></div>
+  <table>
+    <tr><td>Verzia</td><td>1.0</td></tr>
+    <tr><td>Dátum</td><td>Máj 2026</td></tr>
+    <tr><td>Autor</td><td>Adam Mark Šepeľa</td></tr>
+    <tr><td>Určené pre</td><td>Bežných používateľov hľadajúcich autoumyváreň</td></tr>
+  </table>
+</div>
+
+<!-- ÚVOD -->
+<h1><span class="section-num">1.</span> Čo je Umyj.to?</h1>
+<p>
+  <strong>Umyj.to</strong> je webová aplikácia, ktorá ti pomôže nájsť autoumyváreň v okolí
+  — či už na Slovensku alebo v Českej republike. Môžeš porovnávať ceny, čítať recenzie
+  ostatných zákazníkov, zistiť, aké vybavenie umyváreň ponúka, a dokonca si skontrolovať,
+  či tam práve nie je rad.
+</p>
+<p>Aplikácia nevyžaduje registráciu ani prihláenie — otvoríš stránku a hneď môžeš začať hľadať.</p>
+
+<div class="tip">
+  <strong>💡 Tip:</strong> Aplikácia funguje priamo v prehliadači. Stačí otvoriť súbor
+  <code>index.html</code> alebo navštíviť adresu, kde je nasadená.
+</div>
+
+<!-- 2. DOMOVSKÁ STRÁNKA -->
+<h1><span class="section-num">2.</span> Domovská stránka</h1>
+<p>Po otvorení aplikácie uvidíš:</p>
+<ul>
+  <li><strong>Modrý banner</strong> s vyhľadávacím poľom hore na stránke</li>
+  <li><strong>Panel filtrov</strong> pre výber mesta, typu a vybavenia</li>
+  <li><strong>Interaktívnu mapu</strong> so všetkými umyvárňami</li>
+  <li><strong>Zoznam kariet</strong> — každá karta predstavuje jednu umyváreň</li>
+</ul>
+
+<h2>2.1 Vyhľadávanie podľa názvu</h2>
+<div class="step"><div class="step-num">1</div><p>Klikni do vyhľadávacieho poľa v modrom banneri.</p></div>
+<div class="step"><div class="step-num">2</div><p>Začni písať názov umyvárne (napr. „Aqua" alebo „Praha").</p></div>
+<div class="step"><div class="step-num">3</div><p>Zoznam aj mapa sa okamžite aktualizujú — nie je potrebné stlačiť Enter.</p></div>
+
+<h2>2.2 Filtrovanie</h2>
+<table>
+  <tr><th>Filter</th><th>Čo robí</th></tr>
+  <tr><td><strong>Mesto</strong></td><td>Zobrazí len umyvárne z vybraného mesta (SR alebo ČR)</td></tr>
+  <tr><td><strong>Typ umývania</strong></td><td>Automatická / Ručná / Samoobslužná</td></tr>
+  <tr><td><strong>Vybavenie</strong></td><td>Prepínacie tlačidlá: 🌀 Vysávač, 🧼 Pena, ✨ Vosk, 💰 Menička. Zobrazia sa len umyvárne, ktoré majú VŠETKY zaškrtnuté funkcie.</td></tr>
+</table>
+
+<div class="tip">
+  <strong>💡 Tip:</strong> Tlačidlo <strong>✕ Zrušiť filtre</strong> vymaže všetky aktívne filtre
+  a vráti mapu na pôvodný pohľad strednej Európy.
+</div>
+
+<h2>2.3 Nájdenie najbližšej umyvárne</h2>
+<div class="step"><div class="step-num">1</div><p>Klikni na tlačidlo <strong>📍 Nájsť najbližšie</strong>.</p></div>
+<div class="step"><div class="step-num">2</div><p>Prehliadač požiada o povolenie na prístup k polohe — klikni <em>Povoliť</em>.</p></div>
+<div class="step"><div class="step-num">3</div><p>Umyvárne sa zoradia od najbližšej po najvzdialenejšiu a na každej karte sa zobrazí vzdialenosť v km.</p></div>
+<div class="step"><div class="step-num">4</div><p>Na mape sa objaví červená bodka označujúca tvoju polohu.</p></div>
+
+<!-- 3. DETAIL UMYVÁRNE -->
+<h1><span class="section-num">3.</span> Detail umyvárne</h1>
+<p>Kliknutím na ľubovoľnú kartu alebo na tlačidlo <strong>Detail →</strong> sa dostaneš na stránku s podrobnými informáciami.</p>
+
+<h2>3.1 Čo nájdeš na stránke detailu</h2>
+<table>
+  <tr><th>Sekcia</th><th>Obsah</th></tr>
+  <tr><td><strong>Základné info</strong></td><td>Adresa, telefón, otváracie hodiny, hodnotenie</td></tr>
+  <tr><td><strong>Vybavenie</strong></td><td>Zelené tagy ✅ = k dispozícii, preškrtnuté = nie</td></tr>
+  <tr><td><strong>Platba</strong></td><td>Akceptované spôsoby platby (karta, mince, Apple Pay…) a orientačná cena</td></tr>
+  <tr><td><strong>Mini mapa</strong></td><td>Presná poloha umyvárne na interaktívnej mape</td></tr>
+  <tr><td><strong>Cenník</strong></td><td>Zoznam služieb s cenami</td></tr>
+  <tr><td><strong>Aktuálna vyťaženosť</strong></td><td>Waze-like stav nahlásený inými používateľmi</td></tr>
+  <tr><td><strong>Recenzie</strong></td><td>Komentáre a hodnotenia zákazníkov</td></tr>
+</table>
+
+<h2>3.2 Nahlásenie aktuálnej vyťaženosti</h2>
+<p>Ak si práve na umyvárni, pomôž ostatným — nahláš aktuálny stav:</p>
+<ul>
+  <li><span class="badge-green">🟢 Voľno</span> – žiadne čakanie</li>
+  <li><span class="badge-yellow">🟡 Čaká sa</span> – krátky rad</li>
+  <li><span class="badge-red">🔴 Plno</span> – dlhý rad alebo obsadené</li>
+</ul>
+<p>Hlásenie je platné <strong>3 hodiny</strong>. Po uplynutí sa automaticky zobrazí ako neaktuálne.</p>
+
+<!-- 4. RECENZIE -->
+<h1><span class="section-num">4.</span> Napísanie recenzie</h1>
+
+<div class="step"><div class="step-num">1</div><p>Na stránke detailu posun dole na sekciu <strong>✍️ Napíš recenziu</strong>.</p></div>
+<div class="step"><div class="step-num">2</div><p>Zadaj svoje meno (môže byť aj prezývka).</p></div>
+<div class="step"><div class="step-num">3</div>
+  <p>Vyber hodnotenie kliknutím na hviezdičky:<br>
+  ★☆☆☆☆ = 1 (veľmi zlé) &nbsp;·&nbsp; ★★★★★ = 5 (výborné)</p>
+</div>
+<div class="step"><div class="step-num">4</div><p>Napíš text recenzie.</p></div>
+<div class="step"><div class="step-num">5</div><p>Klikni <strong>Odoslať recenziu</strong>. Recenzia sa okamžite zobrazí a zostane aj po obnovení stránky.</p></div>
+
+<div class="tip">
+  <strong>💡 Tip:</strong> Recenzie sú uložené lokálne v tvojom prehliadači. Nie sú zdieľané
+  s inými zariadeniami, ale ostanú dostupné aj po zatvorení a opätovnom otvorení stránky.
+</div>
+
+<!-- 5. HLÁSENIE PROBLÉMOV -->
+<h1><span class="section-num">5.</span> Hlásenie problémov</h1>
+<p>
+  Ak si na umyvárni zistíš problém (nefungujúca menička, poškodený box, chýbajúci prostriedok),
+  môžeš ho nahlásiť priamo z aplikácie:
+</p>
+
+<div class="step"><div class="step-num">1</div><p>Na stránke detailu klikni na tlačidlo <strong>⚠️ Nahlásiť problém</strong>.</p></div>
+<div class="step"><div class="step-num">2</div><p>Do poľa napíš popis problému (napr. „V boxe 2 netečie vosk").</p></div>
+<div class="step"><div class="step-num">3</div><p>Klikni <strong>Odoslať</strong>. Hlásenie ide administrátorovi na schválenie.</p></div>
+<div class="step"><div class="step-num">4</div><p>Po schválení adminom sa hore na stránke zobrazí červené varovanie ⚠️ viditeľné pre všetkých.</p></div>
+<div class="step"><div class="step-num">5</div><p>Keď admin potvrdí, že je problém vyriešený, varovanie zmizne.</p></div>
+
+<!-- 6. NAVIGÁCIA -->
+<h1><span class="section-num">6.</span> Navigácia v aplikácii</h1>
+<table>
+  <tr><th>Odkaz/Tlačidlo</th><th>Čo spraví</th></tr>
+  <tr><td><strong>Umyj.to</strong> (logo)</td><td>Vráti ťa na domovskú stránku</td></tr>
+  <tr><td><strong>← Späť na zoznam</strong></td><td>Vráti ťa z detailu na domovskú stránku</td></tr>
+  <tr><td><strong>Detail →</strong></td><td>Otvorí stránku detailu danej umyvárne</td></tr>
+  <tr><td><strong>📍 Nájsť najbližšie</strong></td><td>Aktivuje geolokáciu a zoradí podľa vzdialenosti</td></tr>
+  <tr><td><strong>✕ Zrušiť filtre</strong></td><td>Vymaže všetky filtre a obnoví pôvodný zoznam</td></tr>
+</table>
+
+<footer style="margin-top:50px; padding-top:14px; border-top:1px solid #c8d8f0; font-size:9pt; color:#888; text-align:center;">
+  Umyj.to – ročníkový projekt &nbsp;·&nbsp; Adam Mark Šepeľa 2026 &nbsp;·&nbsp; Používateľská príručka v1.0
+</footer>
+</body>
+</html>

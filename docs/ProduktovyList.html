@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<title>Produktový list – Umyj.to</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Calibri, 'Segoe UI', Arial, sans-serif;
+    background: #fff;
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* TOP HERO */
+  .hero {
+    background: linear-gradient(135deg, #1a6fc4 0%, #00b4d8 100%);
+    color: #fff;
+    padding: 44px 48px 36px;
+    text-align: center;
+  }
+  .logo {
+    font-size: 52pt;
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1;
+  }
+  .logo span { color: #a8d8f0; }
+  .tagline {
+    font-size: 14pt;
+    margin-top: 10px;
+    opacity: 0.92;
+    font-weight: 300;
+  }
+  .sub-tagline {
+    font-size: 10.5pt;
+    margin-top: 6px;
+    opacity: 0.78;
+  }
+
+  /* CONTENT */
+  .content {
+    flex: 1;
+    padding: 32px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 32px;
+    align-content: start;
+  }
+
+  .block {
+    border: 2px solid #e8f2fd;
+    border-radius: 10px;
+    padding: 18px 20px;
+    background: #f8fbff;
+  }
+  .block-title {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #1a6fc4;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #dbeafe;
+  }
+  .block ul {
+    list-style: none;
+    padding: 0;
+  }
+  .block li {
+    font-size: 10.5pt;
+    color: #333;
+    padding: 4px 0;
+    padding-left: 18px;
+    position: relative;
+    line-height: 1.4;
+  }
+  .block li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #1a6fc4;
+    font-weight: bold;
+  }
+
+  /* TECH TABLE */
+  .block table { width: 100%; border-collapse: collapse; }
+  .block td { font-size: 10pt; padding: 4px 6px; border-bottom: 1px solid #e0ecf8; color: #333; vertical-align: top; }
+  .block td:first-child { font-weight: 600; color: #1a6fc4; width: 45%; }
+  .block tr:last-child td { border-bottom: none; }
+
+  /* WIDE BLOCK */
+  .block-wide { grid-column: 1 / -1; }
+
+  /* MAP COVERAGE */
+  .coverage {
+    display: flex;
+    gap: 20px;
+  }
+  .country {
+    flex: 1;
+    background: #fff;
+    border: 1px solid #c8d8f0;
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .country h3 { font-size: 11pt; color: #1a6fc4; margin-bottom: 8px; }
+  .city-list { font-size: 10pt; color: #555; line-height: 1.6; }
+
+  /* STATS */
+  .stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 48px;
+    background: #1a6fc4;
+    color: #fff;
+    gap: 10px;
+  }
+  .stat { text-align: center; }
+  .stat-number { font-size: 28pt; font-weight: 900; line-height: 1; }
+  .stat-label  { font-size: 9pt; opacity: 0.85; margin-top: 4px; }
+
+  /* FOOTER */
+  footer {
+    background: #1e293b;
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+    padding: 14px 48px;
+    font-size: 9pt;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  footer strong { color: #fff; }
+
+  @media print {
+    body { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="logo">Umyj<span>.to</span></div>
+  <div class="tagline">Nájdi autoumyváreň v Slovensku a Českej republike</div>
+  <div class="sub-tagline">Porovnaj ceny · Prečítaj recenzie · Skontroluj vyťaženosť</div>
+</div>
+
+<!-- STATISTICS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-number">13</div>
+    <div class="stat-label">Umyvární v databáze</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">2</div>
+    <div class="stat-label">Krajiny (SK + CZ)</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">12</div>
+    <div class="stat-label">Miest s pokrytím</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">0</div>
+    <div class="stat-label">Závislostí · Bez servera</div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="content">
+
+  <!-- FEATURES -->
+  <div class="block">
+    <div class="block-title">🔍 Vyhľadávanie a filtre</div>
+    <ul>
+      <li>Live search podľa názvu (okamžité výsledky)</li>
+      <li>Filter podľa mesta – SR a ČR</li>
+      <li>Filter podľa typu umývania</li>
+      <li>Filter podľa vybavenia (vysávač, vosk, pena, menička)</li>
+      <li>Geolokácia – zoradenie podľa vzdialenosti od teba</li>
+    </ul>
+  </div>
+
+  <!-- MAP -->
+  <div class="block">
+    <div class="block-title">🗺️ Interaktívna mapa</div>
+    <ul>
+      <li>Leaflet.js 1.9.4 + OpenStreetMap podklad</li>
+      <li>Klikateľné markery s popup oknom</li>
+      <li>Aktualizácia markerov pri každom filtrovaní</li>
+      <li>Mini mapa priamo na stránke detailu</li>
+      <li>Zobrazenie polohy používateľa (červená bodka)</li>
+    </ul>
+  </div>
+
+  <!-- DETAIL -->
+  <div class="block">
+    <div class="block-title">📋 Detail umyvárne</div>
+    <ul>
+      <li>Cenník služieb s cenami</li>
+      <li>Otváracie hodiny a telefón</li>
+      <li>Vybavenie (áno/nie pre každú funkciu)</li>
+      <li>Spôsoby platby (karta, mince, Apple Pay…)</li>
+      <li>Orientačná cena a max. výška vozidla</li>
+    </ul>
+  </div>
+
+  <!-- COMMUNITY -->
+  <div class="block">
+    <div class="block-title">💬 Komunita a hlásenia</div>
+    <ul>
+      <li>Hviezdičkové recenzie zákazníkov</li>
+      <li>Waze-like stav: 🟢 Voľno · 🟡 Čaká sa · 🔴 Plno</li>
+      <li>Platnosť stavu 3 hodiny od nahlásenia</li>
+      <li>Hlásenie technických problémov</li>
+      <li>Admin schvaľuje varovania (⚠️ na stránke)</li>
+    </ul>
+  </div>
+
+  <!-- COVERAGE -->
+  <div class="block block-wide">
+    <div class="block-title">📍 Pokrytie miest</div>
+    <div class="coverage">
+      <div class="country">
+        <h3>🇸🇰 Slovensko (8 umyvární)</h3>
+        <div class="city-list">
+          Bratislava &nbsp;·&nbsp; Košice &nbsp;·&nbsp; Žilina &nbsp;·&nbsp; Nitra<br>
+          Trnava &nbsp;·&nbsp; Banská Bystrica &nbsp;·&nbsp; Prešov
+        </div>
+      </div>
+      <div class="country">
+        <h3>🇨🇿 Česká republika (5 umyvární)</h3>
+        <div class="city-list">
+          Praha &nbsp;·&nbsp; Brno &nbsp;·&nbsp; Ostrava<br>
+          Plzeň &nbsp;·&nbsp; Liberec
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TECH SPECS -->
+  <div class="block">
+    <div class="block-title">⚙️ Technické parametre</div>
+    <table>
+      <tr><td>Frontend</td><td>HTML5 · CSS3 · JavaScript ES6</td></tr>
+      <tr><td>Mapa</td><td>Leaflet.js 1.9.4 (lokálna kópia)</td></tr>
+      <tr><td>Úložisko dát</td><td>LocalStorage prehliadača</td></tr>
+      <tr><td>Backend</td><td>Žiadny – klient-side only</td></tr>
+      <tr><td>Spustenie</td><td>file:// · Live Server · ľubovoľný hosting</td></tr>
+      <tr><td>Offline</td><td>Áno (bez mapových dlaždíc)</td></tr>
+    </table>
+  </div>
+
+  <!-- ADMIN -->
+  <div class="block">
+    <div class="block-title">🔧 Admin panel</div>
+    <table>
+      <tr><td>Pridávanie</td><td>Formulár s GPS, cenníkom, hodinami</td></tr>
+      <tr><td>Správa</td><td>Zoznam všetkých 13+ umyvární</td></tr>
+      <tr><td>Problémy</td><td>Workflow: Viem o nej → Opravené</td></tr>
+      <tr><td>Mazanie</td><td>Základné (čierna listina) + pridané</td></tr>
+      <tr><td>Reset demo</td><td>Vymaže všetky LocalStorage dáta</td></tr>
+    </table>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 <strong>Umyj.to</strong> – ročníkový projekt</span>
+  <span><strong>Adam Mark Šepeľa</strong></span>
+  <span>Vyrobené bez frameworkov · Pure HTML/CSS/JS</span>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,1324 @@
+/* ===========================================
+   style.css – Štýly pre Umyj.to
+   =========================================== */
+
+/* ------------------------------------------
+   1. CSS PREMENNÉ (farby, tiene, rozmery)
+   -- */
+:root {
+  /* Hlavná modrá paleta */
+  --modra:          #1a6fc4;
+  --modra-tmava:    #145ca0;
+  --modra-svetla:   #5ba4e6;
+  --modra-pozadie:  #e8f2fd;
+  --akcent:         #00b4d8;
+
+  /* Neutrálne farby */
+  --biela:          #ffffff;
+  --pozadie:        #f0f6ff;
+  --seda-svetla:    #f8faff;
+  --seda:           #64748b;
+  --text:           #1e293b;
+  --okraj:          #dbeafe;
+
+  /* Tiene a rozmery */
+  --tien:           0 2px 12px rgba(26, 111, 196, 0.12);
+  --tien-hover:     0 8px 28px rgba(26, 111, 196, 0.22);
+  --polomer:        12px;
+  --polomer-velky:  20px;
+
+  --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* ------------------------------------------
+   2. RESET A ZÁKLADNÉ ŠTÝLY
+   -- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font);
+  color: var(--text);
+  background-color: var(--pozadie);
+  line-height: 1.6;
+}
+
+/* Pomocná trieda – centruje obsah na max 1200px */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ------------------------------------------
+   3. HLAVIČKA
+   -- */
+.header {
+  background-color: var(--biela);
+  border-bottom: 2px solid var(--okraj);
+  position: sticky;
+  top: 0;
+  z-index: 1000;    /* Aby bola nad mapou (Leaflet má z-index 400) */
+  box-shadow: var(--tien);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+/* Logo */
+.logo {
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: var(--modra);
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+.logo span {
+  color: var(--akcent);
+}
+
+/* Navigácia */
+.nav {
+  display: flex;
+  gap: 8px;
+}
+
+.nav-link {
+  color: var(--seda);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 7px 16px;
+  border-radius: 8px;
+  transition: background-color 0.2s, color 0.2s;
+}
+.nav-link:hover,
+.nav-link.active {
+  color: var(--modra);
+  background-color: var(--modra-pozadie);
+}
+
+/* ------------------------------------------
+   4. HERO SEKCIA (banner)
+   -- */
+.hero {
+  background: linear-gradient(135deg, var(--modra) 0%, var(--akcent) 100%);
+  color: var(--biela);
+  padding: 64px 0;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-bottom: 36px;
+}
+
+/* Vyhľadávací input */
+.search-input {
+  display: block;
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  border: none;
+  border-radius: var(--polomer);
+  font-size: 1.05rem;
+  font-family: var(--font);
+  outline: none;
+  color: var(--text);
+}
+.search-input:focus {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.45);
+}
+
+/* ------------------------------------------
+   5. TLAČIDLÁ
+   -- */
+.btn {
+  display: inline-block;
+  padding: 12px 22px;
+  border: 2px solid transparent;
+  border-radius: var(--polomer);
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: var(--font);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s, transform 0.15s, box-shadow 0.2s;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background-color: var(--modra);
+  color: var(--biela);
+}
+.btn-primary:hover {
+  background-color: var(--modra-tmava);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(26, 111, 196, 0.35);
+}
+
+.btn-outline {
+  background-color: var(--biela);
+  color: var(--modra);
+  border-color: var(--okraj);
+}
+.btn-outline:hover {
+  background-color: var(--modra-pozadie);
+  border-color: var(--modra-svetla);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ------------------------------------------
+   6. HLAVNÝ OBSAH – obal pre index stránku
+   -- */
+.main-content {
+  padding: 36px 20px 60px;
+}
+
+/* Filtre */
+.filtre {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+  margin-bottom: 32px;
+  background: var(--biela);
+  padding: 20px 24px;
+  border-radius: var(--polomer-velky);
+  box-shadow: var(--tien);
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.filter-group label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--seda);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.filter-select {
+  padding: 10px 14px;
+  border: 2px solid var(--okraj);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: var(--font);
+  color: var(--text);
+  background-color: var(--biela);
+  cursor: pointer;
+  outline: none;
+  min-width: 190px;
+  transition: border-color 0.2s;
+}
+.filter-select:focus {
+  border-color: var(--modra-svetla);
+}
+
+/* Mapa */
+.mapa-sekcia {
+  margin-bottom: 32px;
+}
+.mapa-sekcia h2 {
+  font-size: 1.35rem;
+  margin-bottom: 14px;
+}
+
+.mapa {
+  height: 420px;
+  border-radius: var(--polomer-velky);
+  box-shadow: var(--tien);
+  border: 2px solid var(--okraj);
+  overflow: hidden;
+}
+
+/* Zoznam umyvární */
+.zoznam-sekcia {
+  margin-bottom: 40px;
+}
+.zoznam-sekcia h2 {
+  font-size: 1.35rem;
+  margin-bottom: 20px;
+}
+
+/* Grid – automaticky prispôsobí počet stĺpcov */
+.zoznam-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 22px;
+}
+
+/* ------------------------------------------
+   7. KARTA UMYVÁRNE
+   -- */
+.karta {
+  background: var(--biela);
+  border-radius: var(--polomer-velky);
+  box-shadow: var(--tien);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  border: 2px solid transparent;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+.karta:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--tien-hover);
+  border-color: var(--modra-svetla);
+}
+
+.karta-hlavicka {
+  background: linear-gradient(135deg, var(--modra) 0%, var(--modra-svetla) 100%);
+  padding: 20px;
+  color: var(--biela);
+}
+
+.karta-typ {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.karta-nazov {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.karta-adresa {
+  font-size: 0.87rem;
+  opacity: 0.85;
+}
+
+.karta-telo {
+  padding: 16px 20px 18px;
+}
+
+/* Hviezdičky + hodnotenie */
+.karta-hodnotenie {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 10px;
+}
+
+.hviezdy {
+  color: #f59e0b;
+  font-size: 1.05rem;
+  letter-spacing: 1px;
+}
+
+.hodnotenie-cislo {
+  font-weight: 700;
+}
+
+.pocet-recenzii {
+  color: var(--seda);
+  font-size: 0.85rem;
+}
+
+.karta-popis {
+  font-size: 0.9rem;
+  color: var(--seda);
+  /* Skráti text na 2 riadky */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.karta-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid var(--okraj);
+  gap: 8px;
+}
+
+.karta-hodiny {
+  font-size: 0.82rem;
+  color: var(--seda);
+}
+
+.karta-vzdialenost {
+  font-size: 0.82rem;
+  color: var(--modra);
+  font-weight: 700;
+}
+
+.btn-karta {
+  font-size: 0.85rem;
+  padding: 6px 16px;
+}
+
+/* Správa o nulových výsledkoch */
+.ziadne-vysledky {
+  text-align: center;
+  color: var(--seda);
+  padding: 48px 20px;
+  font-size: 1rem;
+  grid-column: 1 / -1;
+}
+
+/* ------------------------------------------
+   8. DETAIL STRÁNKA
+   -- */
+.detail-obsah {
+  padding: 36px 20px 60px;
+}
+
+.spat-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--modra);
+  text-decoration: none;
+  font-weight: 600;
+  margin-bottom: 28px;
+  transition: gap 0.2s;
+}
+.spat-link:hover {
+  gap: 10px;
+  text-decoration: underline;
+}
+
+/* Dvojstĺpcový layout pre detail */
+.detail-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+  align-items: start;
+}
+
+/* Ľavý panel – informácie */
+.detail-info {
+  background: var(--biela);
+  border-radius: var(--polomer-velky);
+  padding: 28px;
+  box-shadow: var(--tien);
+}
+
+.detail-typ-badge {
+  display: inline-block;
+  background: var(--modra-pozadie);
+  color: var(--modra);
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detail-nazov {
+  font-size: 1.9rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.detail-hodnotenie {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.detail-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--seda);
+}
+
+.detail-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+}
+
+.detail-meta-row a {
+  color: var(--modra);
+}
+
+.meta-ikonka {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  width: 22px;
+}
+
+.detail-popis {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--okraj);
+  color: var(--seda);
+  line-height: 1.7;
+}
+
+/* Mini mapa v detaile */
+.detail-mapa {
+  height: 220px;
+  border-radius: var(--polomer);
+  overflow: hidden;
+  border: 2px solid var(--okraj);
+  margin-top: 20px;
+}
+
+/* Pravý panel – cenník */
+.cennik-panel {
+  background: var(--biela);
+  border-radius: var(--polomer-velky);
+  padding: 24px;
+  box-shadow: var(--tien);
+}
+
+.cennik-panel h2 {
+  font-size: 1.15rem;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--okraj);
+}
+
+.cennik-riadok {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--okraj);
+  font-size: 0.93rem;
+  gap: 12px;
+}
+.cennik-riadok:last-child {
+  border-bottom: none;
+}
+
+.cennik-cena {
+  font-weight: 700;
+  color: var(--modra);
+  white-space: nowrap;
+}
+
+/* ------------------------------------------
+   9. RECENZIE
+   -- */
+.recenzie-sekcia,
+.formular-recenzia {
+  background: var(--biela);
+  border-radius: var(--polomer-velky);
+  padding: 28px;
+  box-shadow: var(--tien);
+  margin-bottom: 24px;
+}
+
+.recenzie-sekcia h2,
+.formular-recenzia h2 {
+  font-size: 1.3rem;
+  margin-bottom: 22px;
+}
+
+/* Jedna karta recenzie */
+.recenzia-karta {
+  border: 1px solid var(--okraj);
+  border-radius: var(--polomer);
+  padding: 16px 18px;
+  margin-bottom: 12px;
+  background: var(--seda-svetla);
+}
+.recenzia-karta:last-child {
+  margin-bottom: 0;
+}
+
+.recenzia-hlavicka {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+  gap: 12px;
+}
+
+.recenzia-autor {
+  font-weight: 700;
+}
+
+.recenzia-datum {
+  font-size: 0.82rem;
+  color: var(--seda);
+  white-space: nowrap;
+}
+
+.recenzia-text {
+  font-size: 0.93rem;
+  color: var(--seda);
+  line-height: 1.6;
+}
+
+/* ------------------------------------------
+   10. FORMULÁRE (všeobecné)
+   -- */
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 7px;
+  font-size: 0.93rem;
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+  width: 100%;
+  padding: 11px 15px;
+  border: 2px solid var(--okraj);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: var(--font);
+  color: var(--text);
+  background-color: var(--biela);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+  border-color: var(--modra-svetla);
+  box-shadow: 0 0 0 3px rgba(91, 164, 230, 0.18);
+}
+
+.form-textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+/* Hviezdičkový výber hodnotenia (CSS trik) */
+.hviezdy-vstup {
+  display: flex;
+  flex-direction: row-reverse;   /* Obracia poradie hviezd vizuálne */
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.hviezdy-vstup input[type="radio"] {
+  display: none;     /* Schovaj radio button, vidieť len label */
+}
+
+.hviezdy-vstup label {
+  font-size: 2.2rem;
+  color: #d1d5db;
+  cursor: pointer;
+  font-weight: normal;
+  margin-bottom: 0;
+  line-height: 1;
+  transition: color 0.1s;
+}
+
+/* Zvýrazni hviezdy pri hoveri a po výbere */
+.hviezdy-vstup label:hover,
+.hviezdy-vstup label:hover ~ label,
+.hviezdy-vstup input[type="radio"]:checked ~ label {
+  color: #f59e0b;
+}
+
+/* ------------------------------------------
+   11. ADMIN STRÁNKA
+   -- */
+.admin-hero {
+  background: linear-gradient(135deg, #1e3a5f 0%, var(--modra) 100%);
+  color: var(--biela);
+  padding: 42px 0;
+  text-align: center;
+}
+.admin-hero h1 {
+  font-size: 1.9rem;
+  font-weight: 800;
+}
+.admin-hero p {
+  opacity: 0.85;
+  margin-top: 6px;
+}
+
+.admin-formular {
+  background: var(--biela);
+  border-radius: var(--polomer-velky);
+  padding: 32px;
+  box-shadow: var(--tien);
+  max-width: 760px;
+  margin: 36px auto 0;
+}
+
+.admin-formular h2 {
+  font-size: 1.25rem;
+  margin-bottom: 24px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--okraj);
+}
+
+.admin-obsah {
+  padding-bottom: 60px;
+}
+
+/* Dvojstĺpcový riadok vo formulári */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* Správa o úspechu */
+.sprava-uspech {
+  background: #d1fae5;
+  border: 1px solid #6ee7b7;
+  color: #065f46;
+  padding: 14px 18px;
+  border-radius: 8px;
+  margin-top: 16px;
+  display: none;
+  font-weight: 500;
+}
+.sprava-uspech a {
+  color: #065f46;
+  font-weight: 700;
+}
+
+/* Riadok v admin zozname */
+.admin-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  border: 1px solid var(--okraj);
+  border-radius: 8px;
+  margin-bottom: 8px;
+  gap: 12px;
+}
+.admin-item:last-child {
+  margin-bottom: 0;
+}
+
+.admin-item-info strong {
+  display: block;
+  margin-bottom: 2px;
+}
+
+.admin-item-info span {
+  font-size: 0.85rem;
+  color: var(--seda);
+}
+
+.admin-item-akcie {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn-zmazat {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+}
+.btn-zmazat:hover {
+  background-color: #fecaca;
+}
+
+/* ------------------------------------------
+   12. FILTER TLAČIDLÁ (vybavenie na homepage)
+   -- */
+.vybavenie-filtre {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.filter-btn {
+  padding: 8px 14px;
+  border: 2px solid var(--okraj);
+  border-radius: 20px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  font-family: var(--font);
+  color: var(--seda);
+  background: var(--biela);
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+
+.filter-btn:hover {
+  border-color: var(--modra-svetla);
+  color: var(--modra);
+  background-color: var(--modra-pozadie);
+}
+
+.filter-btn--aktivny {
+  background-color: var(--modra);
+  border-color: var(--modra);
+  color: var(--biela);
+}
+
+.filter-btn--aktivny:hover {
+  background-color: var(--modra-tmava);
+  border-color: var(--modra-tmava);
+  color: var(--biela);
+}
+
+/* ------------------------------------------
+   13. DETAIL – nové sekcie a komponenty
+   -- */
+.detail-sekcia {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--okraj);
+}
+
+.detail-sekcia-nazov {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--seda);
+  margin-bottom: 10px;
+}
+
+/* Orientačná cena */
+.cena-orientacna {
+  display: inline-block;
+  margin-top: 12px;
+  background: var(--modra-pozadie);
+  color: var(--modra);
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 8px 18px;
+  border-radius: var(--polomer);
+  border: 2px solid var(--okraj);
+}
+
+/* Spôsoby platby */
+.platba-tagy {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.platba-tag {
+  display: inline-block;
+  padding: 6px 12px;
+  background: var(--seda-svetla);
+  border: 1px solid var(--okraj);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* Vybavenie – tagy áno / nie */
+.vybavenie-tagy {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.vybavenie-tag {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid transparent;
+}
+
+.vybavenie-tag--ano {
+  background: #d1fae5;
+  color: #065f46;
+  border-color: #6ee7b7;
+}
+
+.vybavenie-tag--nie {
+  background: var(--seda-svetla);
+  color: var(--seda);
+  border-color: var(--okraj);
+  text-decoration: line-through;
+  opacity: 0.55;
+}
+
+/* Extra info (boxy, max výška) */
+.detail-extra-tagy {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.detail-extra-tag {
+  display: inline-block;
+  padding: 6px 12px;
+  background: var(--modra-pozadie);
+  color: var(--modra);
+  border: 1px solid var(--okraj);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* ------------------------------------------
+   14. STATUS PANEL (Waze-like vyťaženosť)
+   -- */
+.status-panel {
+  background: var(--biela);
+  border-radius: var(--polomer-velky);
+  padding: 24px;
+  box-shadow: var(--tien);
+  margin-bottom: 24px;
+}
+
+.status-panel h2 {
+  font-size: 1.15rem;
+  margin-bottom: 6px;
+}
+
+.status-hint {
+  font-size: 0.85rem;
+  color: var(--seda);
+  margin-bottom: 16px;
+}
+
+.status-tlacidla {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.status-btn {
+  padding: 10px 18px;
+  border: 2px solid var(--okraj);
+  border-radius: var(--polomer);
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: var(--font);
+  background: var(--biela);
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.status-btn--volno { border-color: #6ee7b7; color: #065f46; }
+.status-btn--volno:hover,
+.status-btn--volno.status-btn--aktivny { background: #d1fae5; border-color: #34d399; }
+
+.status-btn--caka { border-color: #fcd34d; color: #92400e; }
+.status-btn--caka:hover,
+.status-btn--caka.status-btn--aktivny { background: #fef3c7; border-color: #fbbf24; }
+
+.status-btn--plno { border-color: #fca5a5; color: #991b1b; }
+.status-btn--plno:hover,
+.status-btn--plno.status-btn--aktivny { background: #fee2e2; border-color: #f87171; }
+
+.status-zobrazenie {
+  padding: 12px 16px;
+  border-radius: var(--polomer);
+  font-size: 0.92rem;
+  min-height: 46px;
+  line-height: 1.5;
+}
+
+.status-neznamy {
+  background: var(--seda-svetla);
+  color: var(--seda);
+}
+
+.status-badge {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.status-badge--volno { color: #059669; }
+.status-badge--caka  { color: #d97706; }
+.status-badge--plno  { color: #dc2626; }
+
+.status-cas {
+  font-size: 0.82rem;
+  color: var(--seda);
+  margin-top: 4px;
+  display: block;
+}
+
+/* ------------------------------------------
+   15. HLÁSENIE PROBLÉMOV
+   -- */
+.problem-varovania {
+  margin-bottom: 24px;
+}
+
+.problem-varovanie {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #fee2e2;
+  border: 2px solid #fca5a5;
+  border-radius: var(--polomer);
+  padding: 14px 18px;
+  margin-bottom: 10px;
+}
+
+.problem-ikona {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  line-height: 1;
+  margin-top: 1px;
+}
+
+.problem-varovanie-text {
+  font-size: 0.92rem;
+  color: #7f1d1d;
+  line-height: 1.5;
+}
+
+.problem-datum {
+  font-size: 0.8rem;
+  color: #b91c1c;
+  margin-top: 3px;
+  display: block;
+}
+
+.problem-sekcia {
+  background: var(--biela);
+  border-radius: var(--polomer-velky);
+  padding: 24px;
+  box-shadow: var(--tien);
+  margin-bottom: 24px;
+}
+
+.problem-sekcia h2 {
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+}
+
+.problem-hint {
+  font-size: 0.85rem;
+  color: var(--seda);
+  margin-bottom: 14px;
+}
+
+.problem-formular {
+  margin-top: 14px;
+}
+
+.problem-textarea {
+  flex: 1;
+  padding: 10px 14px;
+  border: 2px solid var(--okraj);
+  border-radius: 8px;
+  font-size: 0.93rem;
+  font-family: var(--font);
+  color: var(--text);
+  resize: vertical;
+  min-height: 72px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.problem-textarea:focus {
+  border-color: var(--modra-svetla);
+  box-shadow: 0 0 0 3px rgba(91, 164, 230, 0.18);
+}
+
+.problem-sprava-ok {
+  margin-top: 10px;
+  padding: 10px 14px;
+  background: #d1fae5;
+  border: 1px solid #6ee7b7;
+  color: #065f46;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  display: none;
+}
+
+/* ------------------------------------------
+   16. ADMIN – správa nahlásených problémov
+   -- */
+.admin-sekcia {
+  max-width: 760px;
+  margin: 28px auto 0;
+  background: var(--biela);
+  border-radius: var(--polomer-velky);
+  padding: 28px 32px;
+  box-shadow: var(--tien);
+}
+
+.admin-sekcia h2 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--okraj);
+}
+
+.admin-problem-item {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.admin-problem-item:last-child {
+  margin-bottom: 0;
+}
+
+.admin-problem-info {
+  font-size: 0.9rem;
+  flex: 1;
+}
+
+.admin-problem-info strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+
+.admin-problem-info p {
+  color: var(--seda);
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
+.admin-problem-datum {
+  font-size: 0.8rem;
+  color: var(--seda);
+  margin-top: 5px;
+  display: block;
+}
+
+.admin-problem-akcie {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+  align-items: flex-start;
+}
+
+.btn-schvalit {
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 1px solid #6ee7b7;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+}
+
+.btn-schvalit:hover {
+  background-color: #a7f3d0;
+}
+
+.btn-zamietnut {
+  background-color: var(--seda-svetla);
+  color: var(--seda);
+  border: 1px solid var(--okraj);
+  padding: 6px 14px;
+  font-size: 0.85rem;
+}
+
+.btn-zamietnut:hover {
+  background-color: var(--okraj);
+}
+
+/* Tlačidlo "Viem o nej" – oranžové/žlté */
+.btn-viem {
+  background-color: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fcd34d;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+}
+
+.btn-viem:hover {
+  background-color: #fde68a;
+}
+
+/* Tlačidlo "Opravené" – zelené */
+.btn-opravene {
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 1px solid #6ee7b7;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+}
+
+.btn-opravene:hover {
+  background-color: #a7f3d0;
+}
+
+/* Tag "Zobrazené na stránke" vedľa opravovacieho tlačidla */
+.problem-viem-tag {
+  display: inline-block;
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fcd34d;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+/* Sekcia Reset demo – červený okraj */
+.admin-reset-sekcia {
+  border: 2px solid #fca5a5;
+}
+
+.admin-reset-sekcia h2 {
+  color: #991b1b;
+}
+
+.admin-reset-sekcia p {
+  font-size: 0.9rem;
+  color: var(--seda);
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.btn-reset-demo {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 2px solid #fca5a5;
+  padding: 10px 22px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: var(--font);
+  border-radius: var(--polomer);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-reset-demo:hover {
+  background: #fecaca;
+}
+
+.admin-prazdne {
+  text-align: center;
+  color: var(--seda);
+  padding: 28px 0;
+  font-size: 0.95rem;
+}
+
+/* ------------------------------------------
+   17. PÄTA
+   -- */
+.footer {
+  background: var(--text);
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  padding: 22px 0;
+  margin-top: auto;
+  font-size: 0.9rem;
+}
+
+/* ------------------------------------------
+   13. RESPONZÍVNY DIZAJN (mobilné zariadenia)
+   -- */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 1.7rem;
+  }
+
+  .filtre {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-select {
+    min-width: unset;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .zoznam-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-nazov {
+    font-size: 1.5rem;
+  }
+
+  .status-tlacidla {
+    flex-direction: column;
+  }
+
+  .status-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .problem-formular {
+    flex-direction: column;
+  }
+
+  .admin-problem-item {
+    flex-direction: column;
+  }
+
+  .admin-problem-akcie {
+    width: 100%;
+  }
+
+  .admin-sekcia {
+    padding: 20px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-inner {
+    gap: 12px;
+  }
+  .logo {
+    font-size: 1.5rem;
+  }
+  .admin-formular {
+    padding: 20px 16px;
+  }
+}

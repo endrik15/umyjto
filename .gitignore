@@ -1,0 +1,12 @@
+# Závislosti – stiahnu sa cez "npm install"
+node_modules/
+
+# Databázový súbor – generuje sa automaticky pri spustení servera
+umyto.db
+
+# Nastavenia editora
+.vscode/
+
+# OS súbory
+.DS_Store
+Thumbs.db

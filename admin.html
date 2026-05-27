@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin – Umyj.to</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ==================== HLAVIČKA ==================== -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">Umyj<span>.to</span></a>
+      <nav class="nav">
+        <a href="index.html" class="nav-link">Domov</a>
+        <a href="admin.html" class="nav-link active">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==================== ADMIN HERO ==================== -->
+  <div class="admin-hero">
+    <div class="container">
+      <h1>⚙️ Admin panel</h1>
+      <p>Pridaj novú autoumyváreň a spravuj nahlásené problémy</p>
+    </div>
+  </div>
+
+  <!-- ==================== HLAVNÝ OBSAH ==================== -->
+  <main class="container admin-obsah">
+
+    <!-- FORMULÁR NA PRIDANIE UMYVÁRNE -->
+    <div class="admin-formular">
+      <h2>Nová autoumyváreň</h2>
+
+      <form id="admin-formular">
+
+        <!-- Riadok 1: Názov + Telefón -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="a-nazov">Názov umyvárne *</label>
+            <input type="text" id="a-nazov" class="form-input"
+              placeholder="napr. Super Wash Bratislava" required>
+          </div>
+          <div class="form-group">
+            <label for="a-telefon">Telefón</label>
+            <input type="tel" id="a-telefon" class="form-input"
+              placeholder="+421 900 000 000">
+          </div>
+        </div>
+
+        <!-- Riadok 2: Mesto + Typ -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="a-mesto">Mesto *</label>
+            <input type="text" id="a-mesto" class="form-input"
+              placeholder="napr. Bratislava" required>
+          </div>
+          <div class="form-group">
+            <label for="a-typ">Typ umývania *</label>
+            <select id="a-typ" class="form-select" required>
+              <option value="">Vybrať typ...</option>
+              <option value="automaticka">Automatická</option>
+              <option value="rucna">Ručná</option>
+              <option value="samoobsluzna">Samoobslužná</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Adresa -->
+        <div class="form-group">
+          <label for="a-adresa">Adresa *</label>
+          <input type="text" id="a-adresa" class="form-input"
+            placeholder="napr. Hlavná ulica 1, 811 01 Bratislava" required>
+        </div>
+
+        <!-- Riadok 3: Hodiny + Hodnotenie -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="a-hodiny">Otváracie hodiny</label>
+            <input type="text" id="a-hodiny" class="form-input"
+              placeholder="napr. Po–Pi: 08:00–18:00">
+          </div>
+          <div class="form-group">
+            <label for="a-hodnotenie">Počiatočné hodnotenie (1–5)</label>
+            <input type="number" id="a-hodnotenie" class="form-input"
+              min="1" max="5" step="0.1" value="4.0">
+          </div>
+        </div>
+
+        <!-- Riadok 4: GPS súradnice -->
+        <!-- Tip: súradnice nájdeš na maps.google.com – klikni pravým tlačidlom na miesto -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="a-lat">Zemepisná šírka (lat) *</label>
+            <input type="number" id="a-lat" class="form-input"
+              step="0.0001" placeholder="napr. 48.1486" required>
+          </div>
+          <div class="form-group">
+            <label for="a-lng">Zemepisná dĺžka (lng) *</label>
+            <input type="number" id="a-lng" class="form-input"
+              step="0.0001" placeholder="napr. 17.1077" required>
+          </div>
+        </div>
+        <p style="font-size:0.82rem; color:var(--seda); margin-top:-10px; margin-bottom:18px">
+          💡 Tip: Súradnice nájdeš na Google Maps – klikni pravým tlačidlom na miesto a skopíruj prvé dve čísla.
+        </p>
+
+        <!-- Popis -->
+        <div class="form-group">
+          <label for="a-popis">Popis umyvárne</label>
+          <textarea id="a-popis" class="form-textarea"
+            placeholder="Stručný popis služieb, špeciality, vybavenie..."></textarea>
+        </div>
+
+        <!-- CENNÍK – dynamické riadky -->
+        <h2 style="font-size:1.1rem; margin-bottom:14px; padding-bottom:10px; border-bottom:2px solid var(--okraj)">
+          Cenník
+        </h2>
+        <div id="cennik-polozky">
+          <!-- Riadky cenníka sa generujú cez admin.js -->
+        </div>
+        <button type="button" class="btn btn-outline" id="btn-pridat-polozku"
+          style="margin-bottom:28px; font-size:0.9rem">
+          + Pridať položku cenníka
+        </button>
+
+        <!-- Odoslanie -->
+        <button type="submit" class="btn btn-primary"
+          style="width:100%; font-size:1rem; padding:14px">
+          Uložiť umyváreň
+        </button>
+
+        <!-- Správa o úspechu (skrytá, zobrazí sa po uložení) -->
+        <div id="sprava-uspech" class="sprava-uspech">
+          ✅ Umyváreň bola úspešne pridaná!
+          <a href="index.html">Zobraziť na mape →</a>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- ZOZNAM VŠETKÝCH UMYVÁRNÍ -->
+    <div class="admin-formular" style="margin-top:28px">
+      <h2>Všetky umyvárne</h2>
+      <!-- Zoznam sa načíta dynamicky cez admin.js -->
+      <div id="admin-zoznam"></div>
+    </div>
+
+    <!-- NAHLÁSENÉ PROBLÉMY – správa -->
+    <div class="admin-sekcia">
+      <h2>⚠️ Nahlásené problémy</h2>
+      <!-- Zoznam čakajúcich hlásení sa načíta dynamicky cez admin.js -->
+      <div id="admin-problemy"></div>
+    </div>
+
+    <!-- RESET DEMO – dočasné tlačidlo pre prezentáciu -->
+    <div class="admin-sekcia admin-reset-sekcia">
+      <h2>🗑️ Reset demo</h2>
+      <p>Vymaže <strong>všetky</strong> recenzie, nahlásené problémy, stavy vyťaženosti
+        a umyvárne pridané cez formulár. Základné dáta ostanú.
+        Použiť pred prezentáciou pre čistý štart.
+      </p>
+      <button type="button" class="btn btn-reset-demo" onclick="resetDemo()">
+        🗑️ Vymazať všetky demo dáta
+      </button>
+    </div>
+
+  </main>
+
+  <!-- ==================== PÄTA ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Umyj.to – ročníkový projekt &middot; Adam Mark Šepeľa</p>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

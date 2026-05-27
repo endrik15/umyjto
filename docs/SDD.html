@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<title>SDD – Umyj.to</title>
+<style>
+  @page { size: A4; margin: 2.5cm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Calibri, Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.6;
+    color: #1a1a1a;
+    max-width: 21cm;
+    margin: 0 auto;
+    padding: 2.5cm;
+    background: #fff;
+  }
+  @media print { body { padding: 0; } }
+
+  .cover { text-align: center; padding: 60px 0 80px; border-bottom: 3px solid #1a6fc4; margin-bottom: 40px; }
+  .cover h1 { font-size: 28pt; color: #1a6fc4; margin-bottom: 8px; }
+  .cover .subtitle { font-size: 14pt; color: #555; margin-bottom: 30px; }
+  .cover table { margin: 0 auto; border: none; }
+  .cover td { padding: 4px 16px; border: none; font-size: 10pt; color: #555; }
+  .cover td:first-child { font-weight: bold; text-align: right; }
+
+  h1 { font-size: 18pt; color: #1a6fc4; border-bottom: 2px solid #1a6fc4; padding-bottom: 6px; margin: 28px 0 14px; }
+  h2 { font-size: 13pt; color: #145ca0; margin: 20px 0 8px; }
+  h3 { font-size: 11pt; color: #333; margin: 14px 0 6px; font-weight: bold; }
+  p  { margin-bottom: 8px; }
+  ul, ol { margin: 6px 0 10px 22px; }
+  li { margin-bottom: 4px; }
+  code { font-family: Consolas, monospace; background: #f0f6ff; padding: 1px 5px; border-radius: 3px; font-size: 10pt; }
+  pre  { background: #f0f6ff; border-left: 3px solid #1a6fc4; padding: 12px 14px; font-family: Consolas, monospace;
+         font-size: 9.5pt; line-height: 1.5; overflow-x: auto; margin: 10px 0 16px; white-space: pre-wrap; }
+
+  table { border-collapse: collapse; width: 100%; margin: 12px 0 18px; font-size: 10.5pt; }
+  th { background: #1a6fc4; color: #fff; padding: 8px 10px; text-align: left; font-weight: 600; }
+  td { padding: 7px 10px; border: 1px solid #c8d8f0; vertical-align: top; }
+  tr:nth-child(even) td { background: #f0f6ff; }
+
+  .badge { display: inline-block; background: #e8f2fd; color: #1a6fc4; border: 1px solid #c8d8f0;
+           padding: 2px 8px; border-radius: 12px; font-size: 9.5pt; font-weight: bold; }
+  .section-num { color: #1a6fc4; font-weight: bold; margin-right: 4px; }
+
+  .arch-box { border: 2px solid #1a6fc4; border-radius: 8px; padding: 16px 20px; margin: 14px 0;
+              background: #f8fbff; }
+  .arch-box strong { color: #1a6fc4; }
+</style>
+</head>
+<body>
+
+<!-- TITULNÁ STRANA -->
+<div class="cover">
+  <h1>Umyj.to</h1>
+  <div class="subtitle">Návrh softvéru<br><em>Software Design Document – SDD</em></div>
+  <table>
+    <tr><td>Verzia</td><td>1.0</td></tr>
+    <tr><td>Dátum</td><td>Máj 2026</td></tr>
+    <tr><td>Autor</td><td>Adam Mark Šepeľa</td></tr>
+    <tr><td>Typ projektu</td><td>Ročníkový projekt</td></tr>
+    <tr><td>Technológia</td><td>HTML5 · CSS3 · JavaScript ES6 · Leaflet.js</td></tr>
+  </table>
+</div>
+
+<!-- 1. ARCHITEKTÚRA -->
+<h1><span class="section-num">1.</span> Architektúra systému</h1>
+
+<p>
+  Aplikácia využíva <strong>klient-side MVC architektúru</strong> bez backendu.
+  Celá logika beží v prehliadači používateľa. Nie je potrebný server, databáza ani
+  internetové pripojenie (okrem načítania mapových dlaždíc z OpenStreetMap).
+</p>
+
+<div class="arch-box">
+  <strong>Model</strong> &nbsp;–&nbsp; <code>data.js</code> (statické dáta) + <code>localStorage</code> prehliadača (dynamické dáta)<br><br>
+  <strong>View</strong> &nbsp;&nbsp;&nbsp;–&nbsp; <code>index.html</code>, <code>detail.html</code>, <code>admin.html</code> + <code>style.css</code><br><br>
+  <strong>Controller</strong> –&nbsp; <code>app.js</code> (domovská stránka), <code>detail.js</code> (detail), <code>admin.js</code> (admin panel)
+</div>
+
+<h2>1.1 Tok dát (Data Flow)</h2>
+<pre>
+Prehliadač načíta HTML
+  └── Načíta leaflet.css, style.css
+  └── Spustí leaflet.js, data.js, [app|detail|admin].js
+        │
+        ├── data.js → globálna premenná "umyvarne" (13 objektov)
+        │
+        ├── localStorage → recenzie, stavy, problémy, skryté ID
+        │
+        └── Controller spracuje vstup používateľa
+              └── Aktualizuje DOM + Leaflet mapu
+</pre>
+
+<!-- 2. ŠTRUKTÚRA SÚBOROV -->
+<h1><span class="section-num">2.</span> Štruktúra súborov</h1>
+
+<table>
+  <tr><th>Súbor</th><th>Veľkosť</th><th>Popis</th></tr>
+  <tr><td><code>index.html</code></td><td>~7 KB</td><td>Domovská stránka – vyhľadávanie, filtre, mapa, zoznam kariet</td></tr>
+  <tr><td><code>detail.html</code></td><td>~2 KB</td><td>Kostra detailovej stránky (obsah generuje detail.js)</td></tr>
+  <tr><td><code>admin.html</code></td><td>~5 KB</td><td>Admin panel – formulár, zoznam umyvární, správa problémov, reset</td></tr>
+  <tr><td><code>style.css</code></td><td>~16 KB</td><td>Všetky štýly aplikácie (17 sekcií, CSS Custom Properties)</td></tr>
+  <tr><td><code>data.js</code></td><td>~7 KB</td><td>Mock dáta – 13 umyvární (8 SR + 5 ČR)</td></tr>
+  <tr><td><code>app.js</code></td><td>~8 KB</td><td>Logika domovskej stránky: mapa, filtrovanie, geolokácia</td></tr>
+  <tr><td><code>detail.js</code></td><td>~9 KB</td><td>Logika detailu: info, recenzie, Waze status, hlásenie problémov</td></tr>
+  <tr><td><code>admin.js</code></td><td>~8 KB</td><td>Logika admin panela: CRUD umyvární, správa problémov, reset</td></tr>
+  <tr><td><code>leaflet.js</code></td><td>~148 KB</td><td>Leaflet.js 1.9.4 – lokálna kópia (bez CDN)</td></tr>
+  <tr><td><code>leaflet.css</code></td><td>~14 KB</td><td>Štýly Leaflet.js – lokálna kópia</td></tr>
+  <tr><td><code>images/</code></td><td>–</td><td>Ikony markerov pre Leaflet mapu</td></tr>
+</table>
+
+<h2>2.1 Závislostimedzi súbormi</h2>
+<pre>
+index.html:  leaflet.css → style.css → leaflet.js → data.js → app.js
+detail.html: leaflet.css → style.css → leaflet.js → data.js → detail.js
+admin.html:  style.css → data.js → admin.js
+</pre>
+
+<!-- 3. DÁTOVÝ MODEL -->
+<h1><span class="section-num">3.</span> Dátový model</h1>
+
+<h2>3.1 Objekt umyvárne (data.js)</h2>
+<pre>
+{
+  id:             číslo        // unikátne ID (1–13 pre základné, Date.now() pre pridané)
+  nazov:          reťazec      // "AutoSpa Praha Holešovice"
+  mesto:          reťazec      // "Praha"
+  adresa:         reťazec      // "Komunardů 36, Praha 7"
+  typ:            reťazec      // "automaticka" | "rucna" | "samoobsluzna"
+  lat:            číslo        // GPS zemepisná šírka
+  lng:            číslo        // GPS zemepisná dĺžka
+  hodnotenie:     číslo        // 1.0 – 5.0
+  pocet_recenzii: číslo        // počet hodnotení v základných dátach
+  telefon:        reťazec      // "+421 903 123 456"
+  hodiny:         reťazec      // "Po–Ne: 07:00–21:00"
+  popis:          reťazec      // krátky popis
+  platby:         pole         // ["karta", "mince", "apple_pay", ...]
+  cena_orientacna: reťazec     // "7 – 20 €"
+  vybavenie:      objekt       // { vysavac, aktivna_pena, osusovac, kartace, vosk, menička }
+  pocet_boxov:    číslo|null   // počet boxov (len samoobslužné), inak null
+  max_vyska:      reťazec|null // "2.2 m" | null
+  cennik:         pole         // [{ sluzba: "Základné", cena: "7 €" }, ...]
+}
+</pre>
+
+<h2>3.2 LocalStorage kľúče</h2>
+<table>
+  <tr><th>Kľúč</th><th>Typ</th><th>Obsah</th></tr>
+  <tr><td><code>umyto_umyvarne</code></td><td>JSON pole</td><td>Umyvárne pridané cez admin formulár</td></tr>
+  <tr><td><code>umyto_skryte</code></td><td>JSON pole čísel</td><td>ID základných umyvární zmazaných adminom (čierna listina)</td></tr>
+  <tr><td><code>umyto_recenzie_{id}</code></td><td>JSON pole</td><td>Recenzie ku konkrétnej umyvárni (autor, text, hodnotenie, datum)</td></tr>
+  <tr><td><code>umyto_status_{id}</code></td><td>JSON objekt</td><td>Waze-like stav: { stav: "volno"|"caka"|"plno", cas: timestamp }</td></tr>
+  <tr><td><code>umyto_nahlasene_problemy</code></td><td>JSON pole</td><td>Všetky čakajúce hlásenia problémov (id, umyvarenId, text, datum, stav)</td></tr>
+  <tr><td><code>umyto_schvalene_problemy_{id}</code></td><td>JSON pole</td><td>Schválené (viditeľné) problémy pre konkrétnu umyváreň</td></tr>
+</table>
+
+<!-- 4. POPIS KOMPONENTOV -->
+<h1><span class="section-num">4.</span> Popis komponentov</h1>
+
+<h2>4.1 data.js – Dátová vrstva</h2>
+<p>
+  Globálna premenná <code>umyvarne</code> obsahuje pole 13 objektov: 8 umyvární zo Slovenska
+  (Bratislava, Košice, Žilina, Nitra, Trnava, Banská Bystrica, Prešov) a 5 z Českej republiky
+  (Praha, Brno, Ostrava, Plzeň, Liberec). Každý objekt má kompletné informácie vrátane GPS,
+  cenníka, vybavenia a platobných metód.
+</p>
+
+<h2>4.2 app.js – Domovská stránka</h2>
+<p>Životný cyklus po načítaní stránky:</p>
+<pre>
+DOMContentLoaded
+  ├── initMapa()            → Leaflet mapa, OpenStreetMap dlaždice, markery
+  ├── zobrazUmyvarne()      → CSS Grid karty + počet výsledkov
+  └── pridajEventListeners()
+        ├── input (hľadanie) → filtrujUmyvarne()
+        ├── change (mesto)   → filtrujUmyvarne()
+        ├── change (typ)     → filtrujUmyvarne()
+        ├── click (.filter-btn) → toggle vybavenia → filtrujUmyvarne()
+        ├── click #btn-najblizsia → najdiNajblizisie() [Geolocation API]
+        └── click #btn-reset  → reset filtrov + mapa na [49.5, 16.5] z=7
+</pre>
+<p>
+  Funkcia <code>nacitajVsetkyUmyvarne()</code> spája dáta z <code>data.js</code>
+  a <code>localStorage</code>, pričom odfiltruje ID zo zoznamu <code>umyto_skryte</code>.
+</p>
+
+<h2>4.3 detail.js – Stránka detailu</h2>
+<p>Životný cyklus:</p>
+<pre>
+DOMContentLoaded
+  ├── URLSearchParams → id = parseInt(params.get("id"))
+  ├── najdiUmyvaren(id)        → hľadá v data.js aj LocalStorage,
+  │                              kontroluje umyto_skryte (čierna listina)
+  ├── zobrazDetail(umyvaren)   → generuje celý HTML obsah stránky
+  ├── initDetailMapa(umyvaren) → Leaflet mini mapa (zoom 15)
+  ├── zobrazSchvaleneProblemy(id) → červené ⚠️ varovania hore na stránke
+  ├── zobrazRecenzie(id)       → recenzie z LocalStorage
+  ├── nastavFormularRecenzia(id)  → submit → unshift → uloženie
+  ├── nastavStatusReporter(id)    → Waze status (3 tlačidlá, 180 min TTL)
+  └── nastavHlasenieProblemov(id) → uloženie do umyto_nahlasene_problemy
+</pre>
+
+<h2>4.4 admin.js – Admin panel</h2>
+<p>Funkcie:</p>
+<ul>
+  <li><code>zobrazVsetkyUmyvarne()</code> – zobrazí všetky umyvárne (data.js + LocalStorage), resp. skryté odfiltruje</li>
+  <li><code>ulozUmyvaren(e)</code> – validuje formulár, uloží do LocalStorage</li>
+  <li><code>vymazUmyvaren(id)</code> – základné → čierna listina, pridané → vymaže z LocalStorage</li>
+  <li><code>zobrazNahlaseneProblemy()</code> – renderuje zoznam s tlačidlami podľa stavu</li>
+  <li><code>vedietOProbleme(id, umyvarenId)</code> – stav → "viem", pridá do schválených</li>
+  <li><code>opravitProblem(id, umyvarenId)</code> – vymaže z oboch zoznamov</li>
+  <li><code>zamietnutProblem(id)</code> – vymaže z čakajúcich bez zobrazenia</li>
+  <li><code>resetDemo()</code> – vymaže všetky kľúče začínajúce na <code>umyto_</code></li>
+</ul>
+
+<!-- 5. KĽÚČOVÉ ALGORITMY -->
+<h1><span class="section-num">5.</span> Kľúčové algoritmy</h1>
+
+<h2>5.1 Haversine formula (výpočet vzdialenosti)</h2>
+<pre>
+function vypocitajVzdialenost(lat1, lng1, lat2, lng2) {
+  const R = 6371;  // polomer Zeme v km
+  const dLat = (lat2 - lat1) * (Math.PI / 180);
+  const dLng  = (lng2 - lng1) * (Math.PI / 180);
+  const a =
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI/180) * Math.cos(lat2 * Math.PI/180) *
+    Math.sin(dLng/2) * Math.sin(dLng/2);
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+</pre>
+
+<h2>5.2 Filtrovanie (AND logika)</h2>
+<pre>
+// Všetky podmienky musia platiť súčasne (AND, nie OR)
+vsetky.filter(u =>
+  u.nazov.toLowerCase().includes(filter.hladanie) &&
+  (filter.mesto === "" || u.mesto === filter.mesto) &&
+  (filter.typ   === "" || u.typ   === filter.typ) &&
+  filter.vybavenie.every(klic => u.vybavenie[klic] === true)
+)
+</pre>
+
+<h2>5.3 XSS ochrana</h2>
+<pre>
+function escapeHtml(text) {
+  let div = document.createElement("div");
+  div.textContent = text;   // prehliadač automaticky escapuje
+  return div.innerHTML;     // &lt; &gt; &amp; " sú bezpečne zakódované
+}
+</pre>
+
+<!-- 6. NÁVRH UI -->
+<h1><span class="section-num">6.</span> Návrh UI</h1>
+
+<h2>6.1 Farebná schéma a CSS premenné</h2>
+<table>
+  <tr><th>Premenná</th><th>Hodnota</th><th>Použitie</th></tr>
+  <tr><td><code>--modra</code></td><td>#1a6fc4</td><td>Primárna farba, tlačidlá, nadpisy</td></tr>
+  <tr><td><code>--modra-tmava</code></td><td>#145ca0</td><td>Hover stav tlačidiel</td></tr>
+  <tr><td><code>--modra-svetla</code></td><td>#5ba4e6</td><td>Accenty, focus rámčeky</td></tr>
+  <tr><td><code>--modra-pozadie</code></td><td>#e8f2fd</td><td>Pozadie kariet, tagov</td></tr>
+  <tr><td><code>--akcent</code></td><td>#00b4d8</td><td>Logo .to, hero gradient</td></tr>
+  <tr><td><code>--pozadie</code></td><td>#f0f6ff</td><td>Pozadie stránky</td></tr>
+</table>
+
+<h2>6.2 Layoutové techniky</h2>
+<ul>
+  <li><strong>CSS Grid</strong> – zoznam kariet: <code>repeat(auto-fill, minmax(320px, 1fr))</code></li>
+  <li><strong>CSS Flexbox</strong> – header, filtre, karta-footer, formulárové riadky</li>
+  <li><strong>CSS-only hviezdičky</strong> – <code>flex-direction: row-reverse</code> + <code>input:checked ~ label</code></li>
+  <li><strong>Sticky header</strong> – <code>position: sticky; top: 0; z-index: 1000</code></li>
+  <li><strong>Responzívnosť</strong> – <code>@media (max-width: 768px)</code> a <code>@media (max-width: 480px)</code></li>
+</ul>
+
+<h2>6.3 Použité technológie</h2>
+<table>
+  <tr><th>Technológia</th><th>Verzia</th><th>Kde sa používa</th></tr>
+  <tr><td>HTML5</td><td>–</td><td>Sémantická štruktúra stránok</td></tr>
+  <tr><td>CSS3</td><td>–</td><td>Štýly, layout, animácie, responzívnosť</td></tr>
+  <tr><td>JavaScript ES6+</td><td>–</td><td>Celá aplikačná logika</td></tr>
+  <tr><td>Leaflet.js</td><td>1.9.4</td><td>Interaktívna mapa, markery, popupy</td></tr>
+  <tr><td>OpenStreetMap</td><td>–</td><td>Mapové dlaždice (podklad mapy)</td></tr>
+  <tr><td>LocalStorage API</td><td>–</td><td>Recenzie, hlásenia, stavy, nastavenia</td></tr>
+  <tr><td>Geolocation API</td><td>–</td><td>Nájdenie polohy používateľa</td></tr>
+  <tr><td>URLSearchParams</td><td>–</td><td>Čítanie ?id=X z URL adresy</td></tr>
+</table>
+
+<footer style="margin-top:50px; padding-top:14px; border-top:1px solid #c8d8f0; font-size:9pt; color:#888; text-align:center;">
+  Umyj.to – ročníkový projekt &nbsp;·&nbsp; Adam Mark Šepeľa 2026 &nbsp;·&nbsp; SDD v1.0
+</footer>
+</body>
+</html>

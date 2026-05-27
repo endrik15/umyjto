@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Umyj.to – Nájdi autoumyváreň</title>
+
+  <!-- Naše CSS štýly -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Leaflet CSS – lokálny súbor, žiadny CDN -->
+  <link rel="stylesheet" href="leaflet.css" />
+</head>
+<body>
+
+  <!-- ==================== HLAVIČKA ==================== -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">Umyj<span>.to</span></a>
+      <nav class="nav">
+        <a href="index.html" class="nav-link active">Domov</a>
+        <a href="admin.html" class="nav-link">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==================== HERO BANNER ==================== -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <h1>Nájdi autoumyváreň<br>vo svojom okolí</h1>
+      <p>Porovnaj ceny, prečítaj recenzie a nájdi tú najlepšiu umyváreň.</p>
+
+      <!-- Vyhľadávacie pole – filtruje počas písania -->
+      <input
+        type="text"
+        id="input-hladanie"
+        class="search-input"
+        placeholder="Hľadaj podľa názvu umyvárne..."
+        autocomplete="off"
+      >
+    </div>
+  </section>
+
+  <!-- ==================== HLAVNÝ OBSAH ==================== -->
+  <main class="container main-content">
+
+    <!-- FILTRE -->
+    <section class="filtre">
+      <div class="filter-group">
+        <label for="filter-mesto">Mesto</label>
+        <select id="filter-mesto" class="filter-select">
+          <option value="">Všetky mestá</option>
+          <optgroup label="🇸🇰 Slovensko">
+            <option value="Bratislava">Bratislava</option>
+            <option value="Košice">Košice</option>
+            <option value="Žilina">Žilina</option>
+            <option value="Nitra">Nitra</option>
+            <option value="Trnava">Trnava</option>
+            <option value="Banská Bystrica">Banská Bystrica</option>
+            <option value="Prešov">Prešov</option>
+          </optgroup>
+          <optgroup label="🇨🇿 Česká republika">
+            <option value="Praha">Praha</option>
+            <option value="Brno">Brno</option>
+            <option value="Ostrava">Ostrava</option>
+            <option value="Plzeň">Plzeň</option>
+            <option value="Liberec">Liberec</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="filter-typ">Typ umývania</label>
+        <select id="filter-typ" class="filter-select">
+          <option value="">Všetky typy</option>
+          <option value="automaticka">Automatická</option>
+          <option value="rucna">Ručná</option>
+          <option value="samoobsluzna">Samoobslužná</option>
+        </select>
+      </div>
+
+      <!-- Filter podľa vybavenia – toggle tlačidlá -->
+      <div class="filter-group">
+        <label>Vybavenie</label>
+        <div class="vybavenie-filtre">
+          <button type="button" class="filter-btn" data-vybavenie="vysavac">🌀 Vysávač</button>
+          <button type="button" class="filter-btn" data-vybavenie="aktivna_pena">🧼 Pena</button>
+          <button type="button" class="filter-btn" data-vybavenie="vosk">✨ Vosk</button>
+          <button type="button" class="filter-btn" data-vybavenie="menička">💰 Menička</button>
+        </div>
+      </div>
+
+      <!-- Tlačidlá – type="button" zabraňuje neúmyselnému submit -->
+      <button type="button" class="btn btn-outline" id="btn-najblizsia">
+        📍 Nájsť najbližšie
+      </button>
+
+      <button type="button" class="btn btn-outline" id="btn-reset">
+        ✕ Zrušiť filtre
+      </button>
+    </section>
+
+    <!-- MAPA -->
+    <section class="mapa-sekcia">
+      <h2>Mapa umyvární</h2>
+      <!-- Leaflet vloží mapu do tohto divu -->
+      <div id="mapa" class="mapa"></div>
+    </section>
+
+    <!-- ZOZNAM KARIET -->
+    <section class="zoznam-sekcia">
+      <h2>Nájdené umyvárne (<span id="pocet-vysledkov">0</span>)</h2>
+      <!-- Karty sa vygenerujú dynamicky cez app.js -->
+      <div id="zoznam-umyvarne" class="zoznam-grid"></div>
+    </section>
+
+  </main>
+
+  <!-- ==================== PÄTA ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Umyj.to – ročníkový projekt &middot; Adam Mark Šepeľa</p>
+    </div>
+  </footer>
+
+  <!-- Leaflet JavaScript knižnica – lokálny súbor -->
+  <script src="leaflet.js"></script>
+
+  <!-- Najprv načítame dáta, potom logiku -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

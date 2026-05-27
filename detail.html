@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail umyvárne – Umyj.to</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="leaflet.css" />
+</head>
+<body>
+
+  <!-- ==================== HLAVIČKA ==================== -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">Umyj<span>.to</span></a>
+      <nav class="nav">
+        <a href="index.html" class="nav-link">Domov</a>
+        <a href="admin.html" class="nav-link">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==================== OBSAH ==================== -->
+  <main class="container detail-obsah">
+
+    <!-- Link na návrat -->
+    <a href="index.html" class="spat-link">← Späť na zoznam</a>
+
+    <!-- Sem detail.js dynamicky vloží celý obsah stránky -->
+    <div id="detail-obsah">
+      <p style="color: var(--seda)">Načítavam...</p>
+    </div>
+
+  </main>
+
+  <!-- ==================== PÄTA ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Umyj.to – ročníkový projekt &middot; Adam Mark Šepeľa</p>
+    </div>
+  </footer>
+
+  <script src="leaflet.js"></script>
+  <script src="data.js"></script>
+  <script src="detail.js"></script>
+</body>
+</html>
