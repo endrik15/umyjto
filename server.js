@@ -1,11 +1,26 @@
 const express  = require("express");
 const Database = require("better-sqlite3");
+const session  = require("express-session");
 const path     = require("path");
 
 const app  = express();
 const PORT = 3000;
 
+app.use(session({
+  secret: "umyto-tajny-kluc-2026",
+  resave: false,
+  saveUninitialized: false
+}));
+
 app.use(express.json());
+
+// admin.html je chránená – bez prihlásenia presmeruje na login
+app.get("/admin.html", function (req, res) {
+  if (!req.session.admin) return res.redirect("/login.html");
+  res.sendFile(path.join(__dirname, "admin.html"));
+});
+
+// všetko ostatné (index.html, detail.html, login.html, CSS, JS...) – voľne dostupné
 app.use(express.static(path.join(__dirname)));
 
 const db = new Database("umyto.db");
@@ -44,6 +59,29 @@ db.exec(`
     umyvaren_id INTEGER PRIMARY KEY
   );
 `);
+
+// middleware pre admin API – vráti 401 ak nie je prihlásený
+function adminAuth(req, res, next) {
+  if (req.session.admin) return next();
+  res.status(401).json({ chyba: "Nie si prihlásený." });
+}
+
+// prihlásenie
+app.post("/api/login", function (req, res) {
+  let { meno, heslo } = req.body;
+  if (meno === "admin" && heslo === "admin123") {
+    req.session.admin = true;
+    res.json({ ok: true });
+  } else {
+    res.status(401).json({ chyba: "Zlé meno alebo heslo." });
+  }
+});
+
+// odhlásenie
+app.post("/api/logout", function (req, res) {
+  req.session.destroy();
+  res.json({ ok: true });
+});
 
 // recenzie
 app.get("/api/recenzie/:id", function (req, res) {
@@ -94,17 +132,17 @@ app.post("/api/problemy", function (req, res) {
   res.json({ ok: true });
 });
 
-app.patch("/api/problemy/:id/viem", function (req, res) {
+app.patch("/api/problemy/:id/viem", adminAuth, function (req, res) {
   db.prepare("UPDATE problemy SET stav = 'viem' WHERE id = ?").run(parseInt(req.params.id));
   res.json({ ok: true });
 });
 
-app.patch("/api/problemy/:id/opravit", function (req, res) {
+app.patch("/api/problemy/:id/opravit", adminAuth, function (req, res) {
   db.prepare("DELETE FROM problemy WHERE id = ?").run(parseInt(req.params.id));
   res.json({ ok: true });
 });
 
-app.delete("/api/problemy/:id", function (req, res) {
+app.delete("/api/problemy/:id", adminAuth, function (req, res) {
   db.prepare("DELETE FROM problemy WHERE id = ?").run(parseInt(req.params.id));
   res.json({ ok: true });
 });
@@ -118,7 +156,7 @@ app.get("/api/umyvarne/skryte", function (req, res) {
   res.json(db.prepare("SELECT umyvaren_id FROM umyvarne_skryte").all().map(function (r) { return r.umyvaren_id; }));
 });
 
-app.post("/api/umyvarne", function (req, res) {
+app.post("/api/umyvarne", adminAuth, function (req, res) {
   let umyvaren = req.body;
   if (!umyvaren.nazov) return res.status(400).json({ chyba: "Chýba názov." });
 
@@ -127,7 +165,7 @@ app.post("/api/umyvarne", function (req, res) {
   res.json({ ok: true, id: umyvaren.id });
 });
 
-app.delete("/api/umyvarne/:id", function (req, res) {
+app.delete("/api/umyvarne/:id", adminAuth, function (req, res) {
   let id = parseInt(req.params.id);
   let pridana = db.prepare("SELECT id FROM umyvarne_pridane WHERE id = ?").get(id);
 
@@ -141,7 +179,7 @@ app.delete("/api/umyvarne/:id", function (req, res) {
 });
 
 // reset demo
-app.post("/api/reset", function (req, res) {
+app.post("/api/reset", adminAuth, function (req, res) {
   db.exec(`
     DELETE FROM recenzie;
     DELETE FROM statusy;

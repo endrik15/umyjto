@@ -268,6 +268,11 @@ async function resetDemo() {
   alert("✅ Demo vymazané! Môžeš začať odznova.");
 }
 
+async function odhlasitSa() {
+  await fetch("/api/logout", { method: "POST" });
+  window.location.href = "/login.html";
+}
+
 function escapeHtmlAdmin(text) {
   let div = document.createElement("div");
   div.textContent = text;
