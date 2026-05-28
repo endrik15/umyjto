@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin – Umyj.to</title>
+  <title>Admin Umyj.to</title>
 
   <link rel="stylesheet" href="style.css">
 </head>
@@ -38,7 +38,7 @@
 
       <form id="admin-formular">
 
-        <!-- Riadok 1: Názov + Telefón -->
+        <!-- Názov + Telefón -->
         <div class="form-row">
           <div class="form-group">
             <label for="a-nazov">Názov umyvárne *</label>
@@ -52,7 +52,7 @@
           </div>
         </div>
 
-        <!-- Riadok 2: Mesto + Typ -->
+        <!-- Mesto + Typ -->
         <div class="form-row">
           <div class="form-group">
             <label for="a-mesto">Mesto *</label>
@@ -77,7 +77,7 @@
             placeholder="napr. Hlavná ulica 1, 811 01 Bratislava" required>
         </div>
 
-        <!-- Riadok 3: Hodiny + Hodnotenie -->
+        <!-- Hodiny + Hodnotenie -->
         <div class="form-row">
           <div class="form-group">
             <label for="a-hodiny">Otváracie hodiny</label>
@@ -91,8 +91,7 @@
           </div>
         </div>
 
-        <!-- Riadok 4: GPS súradnice -->
-        <!-- Tip: súradnice nájdeš na maps.google.com – klikni pravým tlačidlom na miesto -->
+        <!-- GPS súradnice -->
         <div class="form-row">
           <div class="form-group">
             <label for="a-lat">Zemepisná šírka (lat) *</label>
@@ -116,12 +115,12 @@
             placeholder="Stručný popis služieb, špeciality, vybavenie..."></textarea>
         </div>
 
-        <!-- CENNÍK – dynamické riadky -->
+        <!-- CENNÍK -->
         <h2 style="font-size:1.1rem; margin-bottom:14px; padding-bottom:10px; border-bottom:2px solid var(--okraj)">
           Cenník
         </h2>
         <div id="cennik-polozky">
-          <!-- Riadky cenníka sa generujú cez admin.js -->
+
         </div>
         <button type="button" class="btn btn-outline" id="btn-pridat-polozku"
           style="margin-bottom:28px; font-size:0.9rem">
@@ -134,7 +133,7 @@
           Uložiť umyváreň
         </button>
 
-        <!-- Správa o úspechu (skrytá, zobrazí sa po uložení) -->
+        <!-- alert -->
         <div id="sprava-uspech" class="sprava-uspech">
           ✅ Umyváreň bola úspešne pridaná!
           <a href="index.html">Zobraziť na mape →</a>
@@ -146,18 +145,18 @@
     <!-- ZOZNAM VŠETKÝCH UMYVÁRNÍ -->
     <div class="admin-formular" style="margin-top:28px">
       <h2>Všetky umyvárne</h2>
-      <!-- Zoznam sa načíta dynamicky cez admin.js -->
+
       <div id="admin-zoznam"></div>
     </div>
 
     <!-- NAHLÁSENÉ PROBLÉMY – správa -->
     <div class="admin-sekcia">
       <h2>⚠️ Nahlásené problémy</h2>
-      <!-- Zoznam čakajúcich hlásení sa načíta dynamicky cez admin.js -->
+
       <div id="admin-problemy"></div>
     </div>
 
-    <!-- RESET DEMO – dočasné tlačidlo pre prezentáciu -->
+    <!-- RESET DEMO -->
     <div class="admin-sekcia admin-reset-sekcia">
       <h2>🗑️ Reset demo</h2>
       <p>Vymaže <strong>všetky</strong> recenzie, nahlásené problémy, stavy vyťaženosti

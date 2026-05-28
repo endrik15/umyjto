@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wireframe – index.html</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">Umyj<span>.to</span></a>
+      <nav class="nav">
+        <a href="#" class="nav-link active">a</a>
+        <a href="#" class="nav-link">a</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-inner">
+      <h1>Nadpis</h1>
+      <p>Popis</p>
+      <input type="text" class="search-input" placeholder="Vyhľadávanie">
+    </div>
+  </section>
+
+  <main class="container main-content">
+
+    <section class="filtre">
+      <div class="filter-group">
+        <label>Mesto</label>
+        <select class="filter-select">
+          <option>Mesto</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Typ</label>
+        <select class="filter-select">
+          <option>Typ</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Vybavenie</label>
+        <div class="vybavenie-filtre">
+          <button type="button" class="filter-btn">button</button>
+          <button type="button" class="filter-btn">button</button>
+          <button type="button" class="filter-btn filter-btn--aktivny">button</button>
+          <button type="button" class="filter-btn">button</button>
+        </div>
+      </div>
+      <button type="button" class="btn btn-outline">Nájsť najbližšie</button>
+      <button type="button" class="btn btn-outline">Zrušiť filtre</button>
+    </section>
+
+    <section class="mapa-sekcia">
+      <h2>Mapa</h2>
+      <div class="mapa" style="background:#1a6fc4; display:flex; align-items:center; justify-content:center; color:white; font-size:1.2rem; font-weight:bold;">
+        mapa
+      </div>
+    </section>
+
+    <section class="zoznam-sekcia">
+      <h2>Nájdené umyvárne (<span id="pocet-vysledkov">Počet výsledkov</span>)</h2>
+      <div class="zoznam-grid">
+
+        <a href="#" class="karta">
+          <div class="karta-hlavicka">
+            <div class="karta-typ">Typ</div>
+            <div class="karta-nazov">Názov</div>
+            <div class="karta-adresa">Adresa</div>
+          </div>
+          <div class="karta-telo">
+            <div class="karta-hodnotenie">
+              <span class="hviezdy">★★★★☆</span>
+              <span class="hodnotenie-cislo">Hodnotenie</span>
+              <span class="pocet-recenzii">Počet recenzií</span>
+            </div>
+            <p class="karta-popis">Popis</p>
+            <div class="karta-footer">
+              <span class="karta-hodiny">Otváracie hodiny</span>
+              <span class="karta-vzdialenost">Vzdialenosť</span>
+              <span class="btn btn-primary btn-karta">Detail</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="karta">
+          <div class="karta-hlavicka">
+            <div class="karta-typ">Typ</div>
+            <div class="karta-nazov">Názov</div>
+            <div class="karta-adresa">Adresa</div>
+          </div>
+          <div class="karta-telo">
+            <div class="karta-hodnotenie">
+              <span class="hviezdy">★★★★☆</span>
+              <span class="hodnotenie-cislo">Hodnotenie</span>
+              <span class="pocet-recenzii">Počet recenzií</span>
+            </div>
+            <p class="karta-popis">Popis</p>
+            <div class="karta-footer">
+              <span class="karta-hodiny">Otváracie hodiny</span>
+              <span class="karta-vzdialenost">Vzdialenosť</span>
+              <span class="btn btn-primary btn-karta">Detail</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="karta">
+          <div class="karta-hlavicka">
+            <div class="karta-typ">Typ</div>
+            <div class="karta-nazov">Názov</div>
+            <div class="karta-adresa">Adresa</div>
+          </div>
+          <div class="karta-telo">
+            <div class="karta-hodnotenie">
+              <span class="hviezdy">★★★★☆</span>
+              <span class="hodnotenie-cislo">Hodnotenie</span>
+              <span class="pocet-recenzii">Počet recenzií</span>
+            </div>
+            <p class="karta-popis">Popis</p>
+            <div class="karta-footer">
+              <span class="karta-hodiny">Otváracie hodiny</span>
+              <span class="karta-vzdialenost">Vzdialenosť</span>
+              <span class="btn btn-primary btn-karta">Detail</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Pätička</p>
+    </div>
+  </footer>
+
+</body>
+</html>

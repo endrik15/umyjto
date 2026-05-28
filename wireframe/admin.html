@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wireframe – admin.html</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">Umyj<span>.to</span></a>
+      <nav class="nav">
+        <a href="index.html" class="nav-link">a</a>
+        <a href="admin.html" class="nav-link active">a</a>
+        <button onclick="odhlasitSa()" class="btn btn-outline" style="padding:6px 14px; font-size:0.85rem">button</button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="admin-hero">
+    <div class="container">
+      <h1>Nadpis</h1>
+      <p>Popis</p>
+    </div>
+  </div>
+
+  <main class="container admin-obsah">
+
+    <div class="admin-formular">
+      <h2>Nadpis</h2>
+
+      <form id="admin-formular">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="a-nazov">Názov</label>
+            <input type="text" id="a-nazov" class="form-input" placeholder="Názov" required>
+          </div>
+          <div class="form-group">
+            <label for="a-telefon">Telefón</label>
+            <input type="tel" id="a-telefon" class="form-input" placeholder="Telefón">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="a-mesto">Mesto</label>
+            <input type="text" id="a-mesto" class="form-input" placeholder="Mesto" required>
+          </div>
+          <div class="form-group">
+            <label for="a-typ">Typ</label>
+            <select id="a-typ" class="form-select" required>
+              <option value="">Typ</option>
+              <option value="automaticka">option</option>
+              <option value="rucna">option</option>
+              <option value="samoobsluzna">option</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="a-adresa">Adresa</label>
+          <input type="text" id="a-adresa" class="form-input" placeholder="Adresa" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="a-hodiny">Otváracie hodiny</label>
+            <input type="text" id="a-hodiny" class="form-input" placeholder="Otváracie hodiny">
+          </div>
+          <div class="form-group">
+            <label for="a-hodnotenie">Hodnotenie</label>
+            <input type="number" id="a-hodnotenie" class="form-input" placeholder="Hodnotenie">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="a-lat">Lat</label>
+            <input type="number" id="a-lat" class="form-input" placeholder="Lat" required>
+          </div>
+          <div class="form-group">
+            <label for="a-lng">Lng</label>
+            <input type="number" id="a-lng" class="form-input" placeholder="Lng" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="a-popis">Popis</label>
+          <textarea id="a-popis" class="form-textarea" placeholder="Popis"></textarea>
+        </div>
+
+        <h2 style="font-size:1.1rem; margin-bottom:14px; padding-bottom:10px; border-bottom:2px solid var(--okraj)">Nadpis</h2>
+
+        <div id="cennik-polozky">
+
+          <div id="polozka-1" class="form-row" style="margin-bottom:10px; align-items:flex-end">
+            <div class="form-group" style="margin-bottom:0; flex:2">
+              <label>Služba</label>
+              <input type="text" class="form-input cennik-sluzba" placeholder="Služba">
+            </div>
+            <div class="form-group" style="margin-bottom:0; flex:1">
+              <label>Cena</label>
+              <input type="text" class="form-input cennik-cena" placeholder="Cena">
+            </div>
+            <button type="button" class="btn btn-outline" style="margin-bottom:0; padding:10px 14px; flex-shrink:0">button</button>
+          </div>
+
+        </div>
+
+        <button type="button" class="btn btn-outline" id="btn-pridat-polozku" style="margin-bottom:28px; font-size:0.9rem">
+          button
+        </button>
+
+        <button type="submit" class="btn btn-primary" style="width:100%; font-size:1rem; padding:14px">
+          button
+        </button>
+
+        <div id="sprava-uspech" class="sprava-uspech" style="display:block">
+          Správa — <a href="#">a</a>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="admin-formular" style="margin-top:28px">
+      <h2>Nadpis</h2>
+
+      <div id="admin-zoznam">
+
+        <div class="admin-item">
+          <div class="admin-item-info">
+            <strong>Názov</strong>
+            <span>Mesto · Typ · Adresa</span>
+          </div>
+          <div class="admin-item-akcie">
+            <a href="detail.html" class="btn btn-outline" style="padding:6px 14px; font-size:0.85rem">a</a>
+            <button class="btn btn-zmazat">button</button>
+          </div>
+        </div>
+
+        <div class="admin-item">
+          <div class="admin-item-info">
+            <strong>Názov <span style="font-size:0.78rem;color:var(--seda)">Pridané</span></strong>
+            <span>Mesto · Typ · Adresa</span>
+          </div>
+          <div class="admin-item-akcie">
+            <a href="detail.html" class="btn btn-outline" style="padding:6px 14px; font-size:0.85rem">a</a>
+            <button class="btn btn-zmazat">button</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="admin-sekcia">
+      <h2>Nadpis</h2>
+
+      <div id="admin-problemy">
+
+        <div class="admin-problem-item" id="problem-1">
+          <div class="admin-problem-info">
+            <strong>🏪 Názov</strong>
+            <p>Text nahlásenia</p>
+            <span class="admin-problem-datum">Dátum</span>
+          </div>
+          <div class="admin-problem-akcie">
+            <button class="btn btn-viem">button</button>
+            <button class="btn btn-zamietnut">button</button>
+          </div>
+        </div>
+
+        <div class="admin-problem-item" id="problem-2">
+          <div class="admin-problem-info">
+            <strong>🏪 Názov</strong>
+            <p>Text nahlásenia</p>
+            <span class="admin-problem-datum">Dátum</span>
+          </div>
+          <div class="admin-problem-akcie">
+            <span class="problem-viem-tag">Status</span>
+            <button class="btn btn-opravene">button</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="admin-sekcia admin-reset-sekcia">
+      <h2>Nadpis</h2>
+      <p>Popis</p>
+      <button type="button" class="btn-reset-demo">button</button>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Pätička</p>
+    </div>
+  </footer>
+
+</body>
+</html>

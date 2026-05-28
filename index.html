@@ -30,7 +30,7 @@
       <h1>Nájdi autoumyváreň<br>vo svojom okolí</h1>
       <p>Porovnaj ceny, prečítaj recenzie a nájdi tú najlepšiu umyváreň.</p>
 
-      <!-- Vyhľadávacie pole – filtruje počas písania -->
+      <!-- Vyhľadávacie pole – filter -->
       <input
         type="text"
         id="input-hladanie"
@@ -79,7 +79,7 @@
         </select>
       </div>
 
-      <!-- Filter podľa vybavenia – toggle tlačidlá -->
+      <!-- Filter toggle  -->
       <div class="filter-group">
         <label>Vybavenie</label>
         <div class="vybavenie-filtre">
@@ -90,7 +90,6 @@
         </div>
       </div>
 
-      <!-- Tlačidlá – type="button" zabraňuje neúmyselnému submit -->
       <button type="button" class="btn btn-outline" id="btn-najblizsia">
         📍 Nájsť najbližšie
       </button>
@@ -100,17 +99,16 @@
       </button>
     </section>
 
-    <!-- MAPA -->
     <section class="mapa-sekcia">
       <h2>Mapa umyvární</h2>
-      <!-- Leaflet vloží mapu do tohto divu -->
+
       <div id="mapa" class="mapa"></div>
     </section>
 
     <!-- ZOZNAM KARIET -->
     <section class="zoznam-sekcia">
       <h2>Nájdené umyvárne (<span id="pocet-vysledkov">0</span>)</h2>
-      <!-- Karty sa vygenerujú dynamicky cez app.js -->
+
       <div id="zoznam-umyvarne" class="zoznam-grid"></div>
     </section>
 
@@ -123,10 +121,8 @@
     </div>
   </footer>
 
-  <!-- Leaflet JavaScript knižnica – lokálny súbor -->
   <script src="leaflet.js"></script>
 
-  <!-- Najprv načítame dáta, potom logiku -->
   <script src="data.js"></script>
   <script src="app.js"></script>
 </body>
