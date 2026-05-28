@@ -3,6 +3,8 @@
 Webová aplikácia na vyhľadávanie autoumyvární v Slovensku a Českej republike.  
 Ročníkový projekt — Adam Mark Šepeľa, 2026.
 
+https://umyjto.up.railway.app/index.html
+
 ## Funkcie
 
 - Vyhľadávanie a filtrovanie umyvární podľa mesta, typu a vybavenia
